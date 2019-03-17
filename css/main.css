@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
 body {
     background-color: #670A67;
@@ -20,26 +20,4 @@ body {
     right: 0;
     margin: auto;
 
-}
-
-#login-btn {
-    position: absolute;
-    top: 30%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-    border: 10px solid #52E5AA;
-    background-color: #670A67;
-    color: #52E5AA;
-    font-size: 1.5rem;
-    border-radius: 500px;
-    width: 8vw;;
-    height: 4vw;
-    cursor: pointer;
-}
-
-#login-btn:hover {
-    background-color: #52E5AA;
-    color: #670A67;
 }

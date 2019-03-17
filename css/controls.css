@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+#login-btn {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    border: 10px solid #52E5AA;
+    background-color: #670A67;
+    color: #52E5AA;
+    font-size: 1.5rem;
+    border-radius: 500px;
+    width: 8vw;
+    height: 4vw;
+    cursor: pointer;
+}
+
+#login-btn:hover {
+    background-color: #52E5AA;
+    color: #670A67;
+}
+
+.centered-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.options {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #52E5AA;
+    border-radius: 30px;
+    width: 20vw;
+    height: 25vw;
+    align-items: center;
+}
+
+.options a {
+    text-decoration: none;
+    color: #670A67;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 1.7vw 0;
+    padding: 10px 30px;
+    border: 5px solid transparent;
+}
+
+.options a:hover {
+    border: 5px solid #670A67;
+    border-radius: 10px;
+    background-color: #670A67;
+    color: #52E5AA;
+}
