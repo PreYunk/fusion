@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="599" height="209" viewBox="0 0 599 209">
+  <g id="Logo" transform="translate(-625 -341)">
+    <text id="FUSION" transform="translate(930.5 505)" fill="#52e5aa" font-size="150" font-family="Raleway-Bold, Raleway" font-weight="700" letter-spacing="0.005em"><tspan x="-282.525" y="0">FUSION</tspan></text>
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(625 540)" fill="#52e5aa" stroke="#707070" stroke-width="1">
+      <ellipse cx="299.5" cy="5" rx="299.5" ry="5" stroke="none"/>
+      <ellipse cx="299.5" cy="5" rx="299" ry="4.5" fill="none"/>
+    </g>
+    <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(625 341)" fill="#52e5aa" stroke="#707070" stroke-width="1">
+      <ellipse cx="299.5" cy="5" rx="299.5" ry="5" stroke="none"/>
+      <ellipse cx="299.5" cy="5" rx="299" ry="4.5" fill="none"/>
+    </g>
+  </g>
+</svg>
