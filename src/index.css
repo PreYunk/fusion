@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
 body {
   margin: 0;
   padding: 0;
-  color: purple;
+  background-color: purple;
+  font-family: "Oswald Regular";
 }

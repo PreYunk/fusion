@@ -1,0 +1,19 @@
+.Button {
+    margin: auto;
+    padding: 3px 15px;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    border:solid 2px aquamarine;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+    color: aquamarine;
+    transform: scale(3);
+    font: inherit;
+}
+
+.Button:hover {
+    background-color: aquamarine;
+    color: purple;
+}
