@@ -1,10 +1,13 @@
 import * as actionTypes from '../actions/actionTypes';
+import {EditorState} from 'draft-js';
 
 const initialState = {
   chapterName: '',
   class: 1,
   marks: 1,
-  type: ''
+  type: '',
+    editorState: EditorState.createEmpty(),
+    subject: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +31,20 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 type: action.value
+            };
+        case actionTypes.CHANGE_EDITOR_STATE:
+            return  {
+                ...state,
+                editorState: action.value
+            };
+        case actionTypes.CHANGE_SUBJECT:
+            return  {
+                ...state,
+                subject: action.value
+            };
+        case actionTypes.RESET_STATE:
+            return {
+              ...initialState
             };
         default:
             return state;

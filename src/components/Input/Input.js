@@ -15,9 +15,6 @@ const input = (props) => {
         <Input
             classes={{root: classes.root}}
             id={props.id}
-            label={props.label}
-            margin="normal"
-            variant="outlined"
             name={props.name}
             onChange={props.onChange}
             value={props.value}

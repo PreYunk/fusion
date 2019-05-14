@@ -1,0 +1,31 @@
+.DefaultColorButton {
+    margin: auto;
+    padding: 3px 15px;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: aquamarine;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+    color: purple;
+    transform: scale(1.5);
+    font: inherit;
+    border: none;
+}
+
+.RedColorButton {
+    margin: auto;
+    padding: 3px 15px;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: crimson;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+    color: black;
+    transform: scale(1.5);
+    font: inherit;
+    border: none;
+}

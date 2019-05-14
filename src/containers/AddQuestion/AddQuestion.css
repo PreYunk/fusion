@@ -3,3 +3,10 @@
 .AddQuestion {
     font-family: 'Roboto Condensed';
 }
+.Editor {
+    background-color: #52E5AA;
+    height: 500px;
+    width: 100%;
+    color: #670A67;
+    font-size: 2rem;
+}

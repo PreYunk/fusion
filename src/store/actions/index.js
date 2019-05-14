@@ -2,5 +2,8 @@ export {
     changeChapterName,
     changeClass,
     changeMarks,
-    changeType
+    changeType,
+    changeEditorState,
+    changeSubject,
+    resetState
 } from './addQuestion';

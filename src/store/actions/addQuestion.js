@@ -27,3 +27,23 @@ export const changeClass = (value) => {
         value: value
     }
 };
+
+export const changeEditorState= (value) => {
+    return {
+        type: actionTypes.CHANGE_EDITOR_STATE,
+        value: value
+    }
+};
+
+export const changeSubject = (value) => {
+    return {
+        type: actionTypes.CHANGE_SUBJECT,
+        value: value
+    }
+};
+
+export const resetState = () => {
+    return{
+        type: actionTypes.RESET_STATE
+    }
+};
