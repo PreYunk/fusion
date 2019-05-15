@@ -48,7 +48,7 @@ class AddQuestion extends Component {
             chapterName: this.props.chName,
             questionData: questionRawData
         };
-        axios.post('http://localhost:3001/api/addQuestion', dataToBeExported)
+        axios.post('https://polar-sea-14304.herokuapp.com/api/addQuestion', dataToBeExported)
             .then(result => {
                 this.props.resetState();
                 this.setState({alertDialogOpen: true});
