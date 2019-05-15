@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+.ViewQuestions {
+    display: flex;
+    flex-flow: row;
+}
+
+.ViewQuestionsControls {
+    display: flex;
+    flex-flow: row;
+    margin: auto;
+    position: fixed;
+    right: 5vw;
+    top: 50px;
+}
+
+.NoQuestionsHeading {
+    color: #52E5AA;
+    font-family: Raleway;
+    font-weight: 700;
+    margin: 50px;
+    font-size: 4rem;
+}
+
+.QuestionDetailsDiv {
+    margin: 20px 0;
+}
+
+.QuestionDetails {
+    color: #52E5AA;
+    font-family: Raleway;
+    font-weight: 400;
+    margin: 30px;
+}
+.QuestionDetail {
+    color: #52E5AA;
+    font-family: Raleway;
+    font-weight: 400;
+    margin: 10px 50px;
+}
+.SummaryComponents {
+    display: flex;
+    margin: 0;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.SummaryComponent {
+    color: #52E5AA;
+    font-family: Raleway;
+    font-weight: 700;
+    margin: 0 30px;
+    font-size: 2rem;
+}
+.ExpandableActions {
+    display: inline;
+}

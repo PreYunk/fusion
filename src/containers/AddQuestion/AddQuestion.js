@@ -41,14 +41,14 @@ class AddQuestion extends Component {
         const questionRawData = JSON.stringify(convertToRaw(this.props.editorState.getCurrentContent()));
         const dataToBeExported = {
             id: Math.floor(Math.random()*1000),
-            class: this.props.cls,
+            cls: this.props.cls,
             subject: this.props.sub,
             type: this.props.type,
             marks: this.props.marks,
             chapterName: this.props.chName,
             questionData: questionRawData
         };
-        axios.post('http://192.168.1.9:3001/api/addQuestion', dataToBeExported)
+        axios.post('http://localhost:3001/api/addQuestion', dataToBeExported)
             .then(result => {
                 this.props.resetState();
                 this.setState({alertDialogOpen: true});

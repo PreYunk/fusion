@@ -6,24 +6,29 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const alertDialog = (props) => {
+
+const formDialog = (props) => {
     return (
-        <Dialog
-            open={props.isOpen}
-            onClose={props.onClose}
-        >
-            <DialogTitle>{props.dialogTitle}</DialogTitle>
+        <Dialog open={props.isOpen}
+                disableBackdropClick={false}
+                onClose={props.onClose}>
+            <DialogTitle>
+                {props.dialogTitle}
+            </DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     {props.dialogContentText}
                 </DialogContentText>
+                {/*Must be wrapped in a div*/}
+                {props.formComponent}
             </DialogContent>
             <DialogActions>
-                <Button onClick={props.onClickButton}>{props.buttonText}</Button>
-                {props.otherDialogActions}
+                <Button onClick={props.okButtonClicked} color='primary'>
+                    {props.okButtonText}
+                </Button>
             </DialogActions>
         </Dialog>
     );
 };
 
-export default alertDialog;
+export default formDialog;

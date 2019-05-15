@@ -1,5 +1,5 @@
 .DefaultColorButton {
-    margin: auto;
+    margin: 30px;
     padding: 3px 15px;
     background: none;
     cursor: pointer;
@@ -15,7 +15,7 @@
 }
 
 .RedColorButton {
-    margin: auto;
+    margin: 30px;
     padding: 3px 15px;
     background: none;
     cursor: pointer;

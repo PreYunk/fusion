@@ -1,0 +1,7 @@
+.ExpandableComponents {
+    display: flex;
+    flex-flow: column;
+    margin: 40px;
+    width: 60vw;
+    height: auto;
+}
