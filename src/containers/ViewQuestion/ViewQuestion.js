@@ -1,16 +1,23 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import ExpandableComponents from '../../components/ExpandableComponents/ExpandableComponents';
 import classes from './ViewQuestion.css';
 import FormDialog from '../../components/FormDialog/FormDialog';
 import FilterFormComponent from '../../components/Specifics/FilterFormComponents/FilterFormComponents';
 import {convertFromRaw} from 'draft-js';
+import {EditorState} from 'draft-js';
 import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
 import FilledButton from '../../components/FilledButton/FilledButton';
+import AlertDialog from '../../components/AlertDialog/AlertDialog';
+import {Editor} from 'react-draft-wysiwyg';
 import axios from 'axios';
+import * as actions from '../../store/actions/index';
 
 class ViewQuestion extends Component {
 
     state = {
+        deleteDialogBoxOpen: false,
         formDialogBoxOpen: false,
         subjectFilter: '',
         classFilter: '',
@@ -19,7 +26,41 @@ class ViewQuestion extends Component {
         questionDataFetched: [],
         subjectsFetched: [],
         classesFetched: [],
-        expandableComponentsData: []
+        expandableComponentsData: [],
+        previewOpen: false,
+        previewEditorState: EditorState.createEmpty()
+    };
+
+    onEditorStateChangeHandler = (editorState) => {
+        this.setState({previewEditorState: editorState})
+    };
+    previewButtonClickHandler = (editorState) => {
+        const prevEditorState = EditorState.createWithContent(editorState);
+        this.setState({previewEditorState: prevEditorState,previewOpen: true});
+    };
+    deleteButtonClickHandler = (questionId) => {
+        axios.delete('/deleteQuestion',{data: {id: questionId}})
+            .then(result => {
+                this.setState({deleteDialogBoxOpen: true});
+                console.log(result);
+            })
+            .catch(err => console.log(err));
+    };
+
+
+    editButtonClickHandler = (questionEditData) => {
+        console.log(questionEditData._id);
+        this.props.setChapterName(questionEditData.chapterName);
+        this.props.setClass(questionEditData.cls);
+        this.props.setSubject(questionEditData.subject);
+        this.props.setType(questionEditData.type);
+        this.props.setMarks(questionEditData.marks);
+        const contentEditorState = convertFromRaw(JSON.parse(questionEditData.questionData));
+        const editorState = EditorState.createWithContent(contentEditorState);
+        this.props.setEditorState(editorState);
+        this.props.setQuestionEditStatus(true, questionEditData._id);
+        this.props.history.push('/start/add');
+
     };
 
     formAcceptHandler = () => {
@@ -30,8 +71,9 @@ class ViewQuestion extends Component {
             queryString = '?subject=' + this.state.subjectFilter;
         else if (this.state.classFilterEnabled)
             queryString = '?class=' + this.state.classFilter;
-        // axios.get('http://localhost:3001/api/getQuestions'+queryString)
-        axios.get('https://polar-sea-14304.herokuapp.com/api/getQuestions'+queryString)
+        console.log('Form Submitted');
+        axios.get('/getQuestions'+queryString)
+        // axios.get('https://polar-sea-14304.herokuapp.com/api/getQuestions'+queryString)
             .then(questions => {
                 console.log(queryString);
                 this.setState({questionDataFetched: questions.data.data});
@@ -44,16 +86,20 @@ class ViewQuestion extends Component {
                             <li className={classes.QuestionDetail}>Marks: {question.marks}</li>
                         </ul>
                     </div>;
+                    const editorState = convertFromRaw(JSON.parse(question.questionData));
                     const expandableActions = <div className={classes.ExpandableActions}>
-                        <MaterialFab>Preview</MaterialFab>
-                        <MaterialFab>Edit</MaterialFab>
+                        <MaterialFab onClick={() => this.previewButtonClickHandler(editorState)}>Preview</MaterialFab>
+                        <MaterialFab onClick={() => this.editButtonClickHandler(question)}>Edit</MaterialFab>
+                        <MaterialFab onClick={() => this.deleteButtonClickHandler(question._id)}>Delete</MaterialFab>
                     </div>;
-                    let rawQue = convertFromRaw(JSON.parse(question.questionData)).getPlainText();
+                    let rawQue = editorState.getPlainText();
                     if(rawQue.length >=50)
                         rawQue = rawQue.slice(0,51);
                     const expSummaryComponent = <div className={classes.SummaryComponents}>
                         <span className={classes.SummaryComponent}>{rawQue}</span>
-                        <span className={classes.SummaryComponent}>{question.chapterName}</span>
+                        <span className={classes.SummaryComponent}>Chapter Number {question.chapterName}</span>
+                        <span className={classes.SummaryComponent}>{question.cls}</span>
+                        <span className={classes.SummaryComponent}>{question.subject}</span>
                     </div>;
                     return {summary: '', summaryComponent: expSummaryComponent, detail: questionDetails, actions: expandableActions};
                 });
@@ -79,11 +125,15 @@ class ViewQuestion extends Component {
         this.setState({classFilter: event.target.value})
     };
     switchStateChanged = switchName => event => {
-        console.log('Switched')
+        console.log('Switched');
         if (switchName === 'subject')
             this.setState({subjectFilterEnabled: event.target.checked});
         if (switchName === 'class')
             this.setState({classFilterEnabled: event.target.checked})
+    };
+
+    previewAlertDialogSubmitButtonHandler = () => {
+        this.setState({previewOpen: false});
     };
 
 
@@ -134,11 +184,42 @@ class ViewQuestion extends Component {
                     <ExpandableComponents expandableComponentsData={this.state.expandableComponentsData}/>:
                     <h1 className={classes.NoQuestionsHeading}>Press Filter to display questions</h1>
                 }
-
                 <div className={classes.ViewQuestionsControls}>
-                    <FilledButton buttonType='default' text='View all' buttonClicked={null}/>
                     <FilledButton buttonType='default' text='Filter' buttonClicked={this.filterButtonClickHandler}/>
                 </div>
+                <AlertDialog
+                    isOpen={this.state.deleteDialogBoxOpen}
+                    dialogTitle='Delete Successful'
+                    onClickButton={() => {this.formAcceptHandler();this.setState({deleteDialogBoxOpen: false})}}
+                    buttonText='Continue'
+                    dialogContentText='Question Deleted Successfully'
+                />
+                <AlertDialog
+                    fullScreen={true}
+                    isOpen={this.state.previewOpen}
+                    dialogTitle='Preview Question'
+                    onClickButton={this.previewAlertDialogSubmitButtonHandler}
+                    buttonText='OK'
+                    dialogContentText=' '
+                    dialogContentComponent=
+                            {<Editor
+                                readOnly
+                                toolbarHidden
+                                editorState={this.state.previewEditorState}
+                                wrapperClassName='demo-wrapper'
+                                editorClassName={classes.PreviewEditor}
+                                onEditorStateChanged={(editorState) => this.onEditorStateChangeHandler(editorState)}
+                            />}
+
+                />
+                {/*<Editor*/}
+                {/*                readOnly*/}
+                {/*                toolbarHidden*/}
+                {/*                editorState={this.state.previewEditorState}*/}
+                {/*                wrapperClassName='demo-wrapper'*/}
+                {/*                editorClassName={classes.PreviewEditor}*/}
+                {/*                onEditorStateChanged={(editorState) => this.onEditorStateChangeHandler(editorState)}*/}
+                {/*            />*/}
                 <FormDialog
                     isOpen={this.state.formDialogBoxOpen}
                     onClose={this.handleFormDialogClose}
@@ -163,4 +244,16 @@ class ViewQuestion extends Component {
     }
 }
 
-export default ViewQuestion;
+const mapDispatchToProps = dispatch => {
+    return {
+        setChapterName: (value) => dispatch(actions.changeChapterName(value)),
+        setClass: (value) => dispatch(actions.changeClass(value)),
+        setMarks: (value) => dispatch(actions.changeMarks(value)),
+        setType: (value) => dispatch(actions.changeType(value)),
+        setSubject: (value) => dispatch(actions.changeSubject(value)),
+        setEditorState: (value) => dispatch(actions.changeEditorState(value)),
+        setQuestionEditStatus: (value, questionId) => dispatch(actions.changeQuestionEditStatus(value, questionId))
+    }
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(ViewQuestion));

@@ -9,14 +9,15 @@ const styles = () => ({
        margin : '0 30px',
        fontFamily: 'Raleway',
        fontWeight: '700',
-       width: '150px'
+       width: '150px',
+       marginTop: '50px'
    }
 });
 
 const materialFab = (props) => {
     const {classes} = props;
     return (
-        <Fab variant='extended' classes={{root: classes.root}}>{props.children}</Fab>
+        <Fab onClick={props.onClick} variant='extended' classes={{root: classes.root}}>{props.children}</Fab>
     )
 };
 

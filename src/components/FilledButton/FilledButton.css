@@ -4,11 +4,11 @@
     background: none;
     cursor: pointer;
     text-decoration: none;
-    background-color: aquamarine;
+    background-color: #52E5AA;
     -moz-border-radius: 75px;
     -webkit-border-radius: 75px;
     border-radius: 75px;
-    color: purple;
+    color: #670A67;
     transform: scale(1.5);
     font: inherit;
     border: none;

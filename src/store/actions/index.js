@@ -5,5 +5,16 @@ export {
     changeType,
     changeEditorState,
     changeSubject,
-    resetState
+    resetState,
+    changeQuestionEditStatus,
+    changeAddType,
+    getTypes
 } from './addQuestion';
+
+export {
+    setPaperClass,
+    setPaperSubject,
+    setPaperTime,
+    setPaperMM,
+    setPaperTerm
+} from './generatePaper';

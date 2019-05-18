@@ -1,20 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald+Regular:400,700');
 .Button {
     margin: auto;
     padding: 3px 15px;
     background: none;
     cursor: pointer;
     text-decoration: none;
-    border:solid 2px aquamarine;
+    border:solid 2px #52E5AA;
     -moz-border-radius: 75px;
     -webkit-border-radius: 75px;
     border-radius: 75px;
-    color: aquamarine;
+    color: #52E5AA;
     transform: scale(3);
-    font-family: 'Oswald Regular';
+    font-family: 'Raleway';
 }
 
 .Button:hover {
-    background-color: aquamarine;
-    color: purple;
+    background-color: #52E5AA;
+    color: #670A67;
 }

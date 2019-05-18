@@ -5,19 +5,18 @@ import {withStyles} from "@material-ui/core/styles";
 
 const styles = {
     root: {
-        backgroundColor: 'aquamarine',
+        backgroundColor: '#52E5AA',
         width: '150px',
+        borderRadius: '50px',
+        textAlign: 'center'
     }
 };
 
 const comboBox = (props) => {
-
-
     const {classes} = props;
-    const menuItems = props.data.map(menuItemObj => {
+    const menuItems = props.data.map((menuItemObj) => {
         return <MenuItem value={menuItemObj.value} >{menuItemObj.label}</MenuItem>;
     });
-    console.log(menuItems);
     return (
       <Select value={props.value}
               classes={{root: classes.root}}

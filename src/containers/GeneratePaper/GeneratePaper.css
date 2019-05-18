@@ -1,0 +1,29 @@
+.GeneratePaper{
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+}
+
+.AdditionalDetails {
+    display: flex;
+    flex-flow: column;
+    margin: 100px 200px 100px 100px;
+}
+
+.AdditionalDetailsControls {
+    display: flex;
+    flex-flow: column;
+    margin: 40px 0 40px 0;
+    border: 2px solid #52E5AA;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 50px;
+}
+
+.AdditionalDetailsControl {
+    display: flex;
+    flex-flow: row;
+    width: 80%;
+    align-content: space-between;
+    margin-bottom: 30px;
+}

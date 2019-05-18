@@ -4,8 +4,9 @@ import {withStyles} from "@material-ui/core/styles";
 
 const styles = {
     root: {
-        backgroundColor: 'aquamarine',
-        width: '300px'
+        backgroundColor: '#52E5AA',
+        width: '300px',
+        borderRadius: '50px'
     }
 };
 
@@ -19,6 +20,10 @@ const input = (props) => {
             onChange={props.onChange}
             value={props.value}
             placeholder={props.placeholder}
+            type={props.type?props.type: 'text'}
+            inputProps={{
+                style: {textAlign: 'center'}
+            }}
         />
     );
 };

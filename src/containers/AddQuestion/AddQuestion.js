@@ -8,13 +8,14 @@ import axios from 'axios';
 
 
 import ComboBox from '../../components/ComboBox/ComboBox';
-import Label from  '../../components/Label/Label';
+import Label from '../../components/Label/Label';
 import FormComponent from '../../components/FormComponent/FormComponent';
 import Input from '../../components/Input/Input';
 import RowGroupedThree from '../../components/RowGroupedThree/RowGroupedThree';
 import FilledButton from '../../components/FilledButton/FilledButton';
 import AlertDialogBox from '../../components/AlertDialog/AlertDialog';
-
+import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
+import AddTypeDialog from '../../components/Specifics/AddTypeDialog/AddTypeDialog';
 
 
 import classes from './AddQuestion.css';
@@ -24,8 +25,36 @@ import * as actions from '../../store/actions/index';
 
 class AddQuestion extends Component {
 
+    componentWillMount() {
+        console.log(this.props.questionEditStatus);
+        this.props.getTypes();
+    }
+
     state = {
-      alertDialogOpen: false
+        alertDialogOpen: false,
+        alertDialogMsg: 'Question Added Successfully',
+        addTypeDialogOpen: false
+    };
+
+    onClickAddTypeHandler = () => {
+        this.setState({addTypeDialogOpen: true});
+    };
+    onAddTypeDialogClose = () => {
+        this.setState({addTypeDialogOpen: false});
+    };
+    onClickAddTypeSubmitHandler = () => {
+        axios.post('/addType', {name: this.props.addType})
+            .then(result => {
+                this.setState({addTypeDialogOpen: false});
+                this.props.getTypes();
+                console.log(result);
+            })
+            .catch(err => console.log(err));
+
+    };
+
+    onChangeAddTypeInputHandler = (event) => {
+        this.props.onAddTypeChange(event.target.value);
     };
 
     chapterNameChangedHandler = (event) => {
@@ -34,13 +63,14 @@ class AddQuestion extends Component {
     };
 
     cancelButtonClicked = () => {
+        this.props.resetState();
         this.props.history.goBack();
     };
 
     submitButtonClicked = () => {
         const questionRawData = JSON.stringify(convertToRaw(this.props.editorState.getCurrentContent()));
         const dataToBeExported = {
-            id: Math.floor(Math.random()*1000),
+            id: Math.floor(Math.random() * 1000),
             cls: this.props.cls,
             subject: this.props.sub,
             type: this.props.type,
@@ -48,15 +78,31 @@ class AddQuestion extends Component {
             chapterName: this.props.chName,
             questionData: questionRawData
         };
-        axios.post('https://polar-sea-14304.herokuapp.com/api/addQuestion', dataToBeExported)
-            .then(result => {
-                this.props.resetState();
-                this.setState({alertDialogOpen: true});
-                console.log(result);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        if (this.props.questionEditStatus) {
+            axios.post('/updateQuestion',
+                {query: this.props.questionEditId, update: {...dataToBeExported}})
+                .then(result => {
+                    this.setState({alertDialogOpen: true, alertDialogMsg: 'Question Updated Successfully'});
+                    this.props.resetState();
+                    console.log(result);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            // axios.post('https://polar-sea-14304.herokuapp.com/api/addQuestion', dataToBeExported)
+            axios.post('/addQuestion', dataToBeExported)
+                .then(result => {
+                    this.setState({alertDialogOpen: true, alertDialogMsg: 'Question Added Successfully'});
+                    this.props.resetState();
+                    console.log(result);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        }
+
 
     };
 
@@ -65,7 +111,16 @@ class AddQuestion extends Component {
         this.props.history.goBack();
     };
 
+    onTypeChangeHandler = (event) => {
+        this.props.onTypeChange(event.target.value);
+    };
+
     render() {
+
+        const typeData = this.props.types !== null ? this.props.types.map(type => {
+           return {value: type.name, label: type.name}
+        }): [{value: 'Add Some Types', label: 'Add Some Types'}];
+
         const marksData = [
             {value: 1, label: '1'},
             {value: 2, label: '2'},
@@ -87,14 +142,6 @@ class AddQuestion extends Component {
             {value: 11, label: 'XI'},
             {value: 12, label: 'XII'},
         ];
-        const typeData = [
-            {value: 'Short Answers', label: 'Short Answers'},
-            {value: 'Long Answers', label: 'Long Answers'},
-            {value: 'One Word', label: 'One Word'},
-            {value: 'Fill Up', label: 'Fill Up'},
-            {value: 'MCQ', label: 'MCQ'},
-            {value: 'Short Notes', label: 'Short Notes'},
-        ];
         const subjectData = [
             {value: 'English I', label: 'English I'},
             {value: 'English II', label: 'English II'},
@@ -113,10 +160,6 @@ class AddQuestion extends Component {
         ];
 
 
-
-
-
-
         const marksLabel = <Label text='Marks:'/>;
         const marksComboBox = <ComboBox value={this.props.marks}
                                         data={marksData}
@@ -124,13 +167,14 @@ class AddQuestion extends Component {
         />;
         const idLabel = <Label text='Question id:'/>;
         const idValue = <Label text='2'/>;
-        const chapterNameLabel = <Label text='Chapter Name:'/>;
+        const chapterNameLabel = <Label text='Chapter Number:'/>;
         const chapterNameInput = <Input onChange={this.chapterNameChangedHandler}
                                         label='Chapter Name'
                                         id='ch-name-id'
                                         name='ch-name-name'
                                         value={this.props.chName}
-                                        placeholder='Chapter Name'
+                                        placeholder='Chapter Number'
+                                        type='number'
         />;
         const classLabel = <Label text='Class: '/>;
         const classComboBox = <ComboBox value={this.props.cls}
@@ -145,7 +189,7 @@ class AddQuestion extends Component {
         const typeLabel = <Label text='Type: '/>;
         const typeComboBox = <ComboBox value={this.props.type}
                                        data={typeData}
-                                       onChange={(event) => this.props.onTypeChange(event.target.value)}
+                                       onChange={(event) => this.onTypeChangeHandler(event)}
         />;
         const cancelButton = <FilledButton text='Cancel'
                                            buttonType='red'
@@ -161,13 +205,23 @@ class AddQuestion extends Component {
         // const latex = '\\frac{1}{\\sqrt{2}}\\cdot 2';
         return (
             <div className={classes.AddQuestion}>
-                <FormComponent labelComponent={idLabel} inputComponent={idValue} />
-                <FormComponent labelComponent={classLabel} inputComponent={classComboBox} />
-                <FormComponent labelComponent={subjectLabel} inputComponent={subjectComboBox} />
-                <FormComponent labelComponent={chapterNameLabel} inputComponent={chapterNameInput} />
-                <FormComponent labelComponent={typeLabel} inputComponent={typeComboBox}/>
+                <FormComponent labelComponent={idLabel} inputComponent={idValue}/>
+                <FormComponent labelComponent={classLabel} inputComponent={classComboBox}/>
+                <FormComponent labelComponent={subjectLabel} inputComponent={subjectComboBox}/>
+                <FormComponent labelComponent={chapterNameLabel} inputComponent={chapterNameInput}/>
+                <div className={classes.TypeComponents}>
+                    <FormComponent labelComponent={typeLabel} inputComponent={typeComboBox}/>
+                    <MaterialFab onClick={this.onClickAddTypeHandler}>Add</MaterialFab>
+                </div>
+                <AddTypeDialog
+                    isOpen={this.state.addTypeDialogOpen}
+                    onClose={this.onAddTypeDialogClose}
+                    addTypeInputChanged={this.onChangeAddTypeInputHandler}
+                    addTypeInputValue={this.props.addType}
+                    buttonClicked={this.onClickAddTypeSubmitHandler}
+                />
                 <FormComponent labelComponent={marksLabel} inputComponent={marksComboBox}/>
-                <FormComponent labelComponent={addQuestionLabel} inputComponent={null} />
+                <FormComponent labelComponent={addQuestionLabel} inputComponent={null}/>
                 <Editor
                     editorState={this.props.editorState}
                     wrapperClassName="demo-wrapper"
@@ -178,10 +232,11 @@ class AddQuestion extends Component {
                 {/*<MathQuill latex={latex}/>*/}
                 <RowGroupedThree firstComp={cancelButton} secondComp={previewButton} thirdComp={submitButton}/>
                 <AlertDialogBox
+                    fullScreen={false}
                     isOpen={this.state.alertDialogOpen}
                     onClose={this.alterDialogBoxCloseHandler}
-                    dialogTitle={' '}
-                    dialogContentText='Question Added Successfully'
+                    dialogTitle={'Success'}
+                    dialogContentText={this.state.alertDialogMsg}
                     buttonText='OK'
                     onClickButton={this.alertDialogBoxCloseHandler}
                 />
@@ -193,26 +248,32 @@ class AddQuestion extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        chName : state.chapterName,
-        cls : state.class,
-        marks : state.marks,
-        type : state.type,
-        editorState: state.editorState,
-        sub: state.subject
+        chName: state.addQuestionReducer.chapterName,
+        cls: state.addQuestionReducer.class,
+        marks: state.addQuestionReducer.marks,
+        type: state.addQuestionReducer.type,
+        editorState: state.addQuestionReducer.editorState,
+        sub: state.addQuestionReducer.subject,
+        questionEditStatus: state.addQuestionReducer.questionEditStatus,
+        questionEditId: state.addQuestionReducer.questionEditId,
+        addType: state.addQuestionReducer.addType,
+        types: state.addQuestionReducer.types
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onChapterNameChange : (value) => dispatch(actions.changeChapterName(value)),
-        onClassChange : (value) => dispatch(actions.changeClass(value)),
-        onMarksChange : (value) => dispatch(actions.changeMarks(value)),
-        onTypeChange : (value) => dispatch(actions.changeType(value)),
-        onSubjectChange : (value) => dispatch(actions.changeSubject(value)),
+        onChapterNameChange: (value) => dispatch(actions.changeChapterName(value)),
+        onClassChange: (value) => dispatch(actions.changeClass(value)),
+        onMarksChange: (value) => dispatch(actions.changeMarks(value)),
+        onTypeChange: (value) => dispatch(actions.changeType(value)),
+        onSubjectChange: (value) => dispatch(actions.changeSubject(value)),
         onEditorStateChange: (value) => dispatch(actions.changeEditorState(value)),
-        resetState : () => dispatch(actions.resetState())
+        resetState: () => dispatch(actions.resetState()),
+        onAddTypeChange: (value) => dispatch(actions.changeAddType(value)),
+        getTypes: () => dispatch(actions.getTypes())
     };
 
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(AddQuestion);
+export default connect(mapStateToProps, mapDispatchToProps)(AddQuestion);

@@ -53,3 +53,10 @@
 .ExpandableActions {
     display: inline;
 }
+.PreviewEditor {
+    font-family: 'Raleway';
+    font-size: 2rem;
+    color: black;
+    width: 100%;
+    height: auto;
+}

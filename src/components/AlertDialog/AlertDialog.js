@@ -6,17 +6,23 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+
+
+
 const alertDialog = (props) => {
+    const {classes} = props;
     return (
         <Dialog
             open={props.isOpen}
             onClose={props.onClose}
+            fullScreen={props.fullScreen}
         >
             <DialogTitle>{props.dialogTitle}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     {props.dialogContentText}
                 </DialogContentText>
+                {props.dialogContentComponent}
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onClickButton}>{props.buttonText}</Button>

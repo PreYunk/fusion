@@ -2,15 +2,13 @@ import React from 'react';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
     root: {
-        backgroundColor: '#670A67',
-        border: 'none',
+        backgroundColor: '#500a50',
         boxShadow: 'none',
         fontWeight: '700',
 

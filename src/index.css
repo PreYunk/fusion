@@ -1,7 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 body {
   margin: 0;
   padding: 0;
-  background-color: purple;
-  font-family: "Oswald Regular";
+  background-color: #670A67;
+  font-family: "Raleway";
+}
+.error {
+  color: #52E5AA;
+  font-size: 50px;
 }
