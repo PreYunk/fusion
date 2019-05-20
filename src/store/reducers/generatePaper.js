@@ -1,11 +1,15 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  paperClass: '',
-  paperSubject: '',
-  paperTime: '',
-  paperMM: 0,
-  paperTerm: ''
+    paperClass: '',
+    paperClassValue: 0,
+    paperSubject: '',
+    paperTime: '',
+    paperMM: 0,
+    paperTerm: '',
+    sectionNumbers: 0,
+    selectedQuestions: [],
+    selectedSection: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,7 +17,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_PAPER_CLASS:
             return {
                 ...state,
-                paperClass: action.value
+                paperClass: action.label,
+                paperClassValue: action.value
             };
         case actionTypes.SET_PAPER_SUBJECT:
             return {
@@ -34,6 +39,23 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 paperTerm: action.value
+            };
+        case actionTypes.SET_SECTION_NUMBERS:
+            return  {
+                ...state,
+                sectionNumbers: action.value
+            };
+        case actionTypes.ADD_TO_SELECTED_QUESTIONS:
+            const updatedSelectedQuestions = [...state.selectedQuestions];
+            updatedSelectedQuestions.push(action.value);
+            return {
+                ...state,
+                selectedQuestions: updatedSelectedQuestions
+            };
+        case actionTypes.SET_SELECTED_SECTION:
+            return {
+                ...state,
+                selectedSection: action.value
             };
         default:
             return {...state};

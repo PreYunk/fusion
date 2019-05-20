@@ -7,7 +7,7 @@ const styles = (theme) => ({
     container: {
         display: 'flex',
         flexFlow: 'column',
-        margin: '100px 200px 100px 100px'
+        marginBottom: '30px'
     },
     headerStyle: {
         color: '#52E5AA',

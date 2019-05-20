@@ -2,6 +2,7 @@
     display: flex;
     flex-flow: row;
     align-content: space-between;
+    width: 100%;
 }
 
 .AdditionalDetails {
@@ -26,4 +27,15 @@
     width: 80%;
     align-content: space-between;
     margin-bottom: 30px;
+}
+
+.DataLists {
+    width: 50vw;
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+    margin: 100px 50px;
+}
+.DataList {
+    margin: 0 100px;
 }

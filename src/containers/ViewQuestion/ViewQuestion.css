@@ -46,9 +46,9 @@
 .SummaryComponent {
     color: #52E5AA;
     font-family: Raleway;
-    font-weight: 700;
+    font-weight: 400;
     margin: 0 30px;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 .ExpandableActions {
     display: inline;

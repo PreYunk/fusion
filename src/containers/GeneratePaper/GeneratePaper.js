@@ -7,6 +7,7 @@ import Input from '../../components/Input/Input';
 import ComboBox from '../../components/ComboBox/ComboBox';
 import Label from '../../components/Label/Label';
 import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
+import  axios from 'axios';
 
 class GeneratePaper extends Component {
 
@@ -15,13 +16,64 @@ class GeneratePaper extends Component {
         subjectSelectedIndex: -1
     };
 
+
     classListClickHandler = (event, label, index) => {
         this.setState({classSelectedIndex: index});
-        this.props.setPaperClass(label);
+        let classValue = 0;
+        switch (label) {
+            case 'I':
+                classValue = 1;
+                break;
+            case 'II':
+                classValue = 2;
+                break;
+            case 'III':
+                classValue = 3;
+                break;
+            case 'IV':
+                classValue = 4;
+                break;
+            case 'V':
+                classValue = 5;
+                break;
+            case 'VI':
+                classValue = 6;
+                break;
+            case 'VII':
+                classValue = 7;
+                break;
+            case 'VIII':
+                classValue = 8;
+                break;
+            case 'IX':
+                classValue = 9;
+                break;
+            case 'X':
+                classValue = 10;
+                break;
+            case 'XI':
+                classValue = 11;
+                break;
+            case 'XII':
+                classValue = 12;
+                break;
+
+        }
+        this.props.setPaperClass(label, classValue);
     };
     subjectListClickHandler = (event, label, index) => {
         this.setState({subjectSelectedIndex: index});
         this.props.setPaperSubject(label);
+    };
+
+    generateNextButtonClicked = () => {
+        axios.get('/getQuestions?class='+this.props.paperClassValue+'&subject='+this.props.paperSubject)
+            .then(result => {
+                console.log(result.data.data);
+                this.props.setFetchedQuestions(result.data.data);
+            })
+            .catch(err => console.log(err));
+        this.props.history.push('/start/generate/select');
     };
 
     render() {
@@ -173,24 +225,24 @@ class GeneratePaper extends Component {
                 label: 'Biology'
             },
         ];
-
-        const termData = [
-            {value: 'I Unit Test', label: 'I Unit Test'},
-            {value: 'II Unit Test', label: 'II Unit Test'},
-            {value: 'III Unit Test', label: 'III Unit Test'},
-            {value: 'Half Yearly', label: 'Half Yearly'},
-            {value: 'Annual', label: 'Annual'}
-        ];
         return (
             <div className={classes.GeneratePaper}>
-                <List
-                    listData={classData}
-                    header='Class:'
-                />
-                <List
-                    listData={subjectData}
-                    header='Subject:'
-                />
+                <div className={classes.DataLists}>
+                    <div className={classes.DataList}>
+                        <List
+                            listData={classData}
+                            header='Class:'
+                        />
+                    </div>
+                    <div className={classes.DataList}>
+                        <List
+                            listData={subjectData}
+                            header='Subject:'
+                        />
+                    </div>
+
+                </div>
+
                 <div className={classes.AdditionalDetails}>
                     <Label text='Additional Details:'/>
                     <div className={classes.AdditionalDetailsControls}>
@@ -205,11 +257,22 @@ class GeneratePaper extends Component {
                                    value={this.props.paperMM} placeholder='Max Marks' type='number'/>
                         </div>
                         <div className={classes.AdditionalDetailsControl}>
-                            <Label text='Term: '/>;
-                            <ComboBox
+                            <Label text='Name of Examination: '/>;
+                            <Input
+                                name='exam'
                                 value={this.props.paperTerm}
                                 onChange={(event) => this.props.setPaperTerm(event.target.value)}
-                                data={termData}
+                                placeholder='Name of Exam'
+                            />
+                        </div>
+                        <div className={classes.AdditionalDetailsControl}>
+                            <Label text='No. of Sections: '/>;
+                            <Input
+                                name='sectionNumbers'
+                                onChange={(event) => this.props.setSectionNumbers(event.target.value)}
+                                value={this.props.sectionNumbers}
+                                placeholder='Sections'
+                                type='number'
                             />
                         </div>
                     </div>
@@ -226,20 +289,25 @@ class GeneratePaper extends Component {
 const mapStateToProps = state => {
     return {
         paperClass: state.generatePaperReducer.paperClass,
+        paperClassValue: state.generatePaperReducer.paperClassValue,
         paperSubject: state.generatePaperReducer.paperSubject,
         paperTime: state.generatePaperReducer.paperTime,
         paperMM: state.generatePaperReducer.paperMM,
         paperTerm: state.generatePaperReducer.paperTerm,
+        sectionNumbers: state.generatePaperReducer.sectionNumbers
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        setPaperClass: (value) => dispatch(actions.setPaperClass(value)),
+        setPaperClass: (label, classValue) => dispatch(actions.setPaperClass(label, classValue)),
         setPaperSubject: (value) => dispatch(actions.setPaperSubject(value)),
         setPaperTime: (value) => dispatch(actions.setPaperTime(value)),
         setPaperMM: (value) => dispatch(actions.setPaperMM(value)),
         setPaperTerm: (value) => dispatch(actions.setPaperTerm(value)),
+        setSectionNumbers: (value) => dispatch(actions.setSectionNumbers(value)),
+        setFetchedQuestions: (value) => dispatch(actions.setFetchedQuestions(value)),
+
     }
 };
 

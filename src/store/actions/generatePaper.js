@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const setPaperClass = (value) => {
+export const setPaperClass = (label, value) => {
     return {
         type: actionTypes.SET_PAPER_CLASS,
+        label: label,
         value: value
     }
 };
@@ -34,4 +35,26 @@ export const setPaperTerm = (value) => {
         value: value
     }
 };
+
+export const setSectionNumbers = (value) => {
+    return {
+        type: actionTypes.SET_SECTION_NUMBERS,
+        value: value
+    }
+};
+
+export const addToSelectedQuestions = (value) => {
+    return {
+        type: actionTypes.ADD_TO_SELECTED_QUESTIONS,
+        value: value
+    }
+};
+
+export const setSelectedSection = (value) => {
+    return {
+        type: actionTypes.SET_SELECTED_SECTION,
+        value: value
+    }
+};
+
 

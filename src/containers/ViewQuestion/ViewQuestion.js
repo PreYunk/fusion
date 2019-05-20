@@ -97,8 +97,8 @@ class ViewQuestion extends Component {
                         rawQue = rawQue.slice(0,51);
                     const expSummaryComponent = <div className={classes.SummaryComponents}>
                         <span className={classes.SummaryComponent}>{rawQue}</span>
-                        <span className={classes.SummaryComponent}>Chapter Number {question.chapterName}</span>
-                        <span className={classes.SummaryComponent}>{question.cls}</span>
+                        <span className={classes.SummaryComponent}>Ch. No. {question.chapterName}</span>
+                        <span className={classes.SummaryComponent}>Class: {question.cls}</span>
                         <span className={classes.SummaryComponent}>{question.subject}</span>
                     </div>;
                     return {summary: '', summaryComponent: expSummaryComponent, detail: questionDetails, actions: expandableActions};
@@ -169,15 +169,6 @@ class ViewQuestion extends Component {
             {value: 'Chemistry', label: 'Chemistry'},
             {value: 'Biology', label: 'Biology'},
         ];
-
-
-        /*const expandableComponentsData = [
-            {actions: null, detail: 'Dummy', summary: 'Dummy'},
-            {actions: null, detail: 'Dummy', summary: 'Dummy'},
-            {actions: null, detail: 'Dummy', summary: 'Dummy'},
-            {actions: null, detail: 'Dummy', summary: 'Dummy'},
-            {actions: null, detail: 'Dummy', summary: 'Dummy'},
-        ];*/
         return (
             <div className={classes.ViewQuestions}>
                 {this.state.expandableComponentsData.length ?
@@ -212,14 +203,6 @@ class ViewQuestion extends Component {
                             />}
 
                 />
-                {/*<Editor*/}
-                {/*                readOnly*/}
-                {/*                toolbarHidden*/}
-                {/*                editorState={this.state.previewEditorState}*/}
-                {/*                wrapperClassName='demo-wrapper'*/}
-                {/*                editorClassName={classes.PreviewEditor}*/}
-                {/*                onEditorStateChanged={(editorState) => this.onEditorStateChangeHandler(editorState)}*/}
-                {/*            />*/}
                 <FormDialog
                     isOpen={this.state.formDialogBoxOpen}
                     onClose={this.handleFormDialogClose}

@@ -16,5 +16,15 @@ export {
     setPaperSubject,
     setPaperTime,
     setPaperMM,
-    setPaperTerm
+    setPaperTerm,
+    setSectionNumbers,
+    addToSelectedQuestions,
+    setSelectedSection
 } from './generatePaper';
+
+export {
+    setFetchedQuestions,
+    setSelectedChapter,
+    setSelectedType,
+    setGroupedQuestions
+} from './selectQuesitons';

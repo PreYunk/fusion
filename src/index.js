@@ -8,15 +8,17 @@ import {Provider} from "react-redux";
 import thunk from 'redux-thunk';
 import addQuestionReducer from './store/reducers/addQuestion';
 import generatePaperReducer from './store/reducers/generatePaper';
+import selectQuestionsReducer from './store/reducers/selectQuestions';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'http://localhost:3001/api';
-axios.defaults.baseURL = 'https://polar-sea-14304.herokuapp.com/api';
+axios.defaults.baseURL = 'http://localhost:3001/api';
+// axios.defaults.baseURL = 'https://polar-sea-14304.herokuapp.com/api';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducer = combineReducers({
    addQuestionReducer,
-   generatePaperReducer
+   generatePaperReducer,
+    selectQuestionsReducer
 });
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
