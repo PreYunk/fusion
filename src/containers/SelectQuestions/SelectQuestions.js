@@ -52,8 +52,6 @@ class SelectQuestions extends Component {
             group[question.section][questionType].push(question.question);
             return group;
         }, Object.create(null));
-        for(let values of Object.values(groupedQuestions))
-            console.log(values);
         this.props.setGroupedQuestions(groupedQuestions);
         this.props.history.push('/gen');
 

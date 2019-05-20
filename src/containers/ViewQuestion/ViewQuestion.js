@@ -10,6 +10,8 @@ import {EditorState} from 'draft-js';
 import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
 import FilledButton from '../../components/FilledButton/FilledButton';
 import AlertDialog from '../../components/AlertDialog/AlertDialog';
+import {HeartSpinner} from "react-spinners-kit";
+import LoadingOverlay from 'react-loading-overlay';
 import {Editor} from 'react-draft-wysiwyg';
 import axios from 'axios';
 import * as actions from '../../store/actions/index';
@@ -28,7 +30,8 @@ class ViewQuestion extends Component {
         classesFetched: [],
         expandableComponentsData: [],
         previewOpen: false,
-        previewEditorState: EditorState.createEmpty()
+        previewEditorState: EditorState.createEmpty(),
+        loading: false
     };
 
     onEditorStateChangeHandler = (editorState) => {
@@ -39,10 +42,12 @@ class ViewQuestion extends Component {
         this.setState({previewEditorState: prevEditorState,previewOpen: true});
     };
     deleteButtonClickHandler = (questionId) => {
+        this.setState({loading: true});
         axios.delete('/deleteQuestion',{data: {id: questionId}})
             .then(result => {
                 this.setState({deleteDialogBoxOpen: true});
                 console.log(result);
+                this.setState({loading: false});
             })
             .catch(err => console.log(err));
     };
@@ -72,6 +77,7 @@ class ViewQuestion extends Component {
         else if (this.state.classFilterEnabled)
             queryString = '?class=' + this.state.classFilter;
         console.log('Form Submitted');
+        this.setState({loading: true});
         axios.get('/getQuestions'+queryString)
         // axios.get('https://polar-sea-14304.herokuapp.com/api/getQuestions'+queryString)
             .then(questions => {
@@ -106,6 +112,7 @@ class ViewQuestion extends Component {
                 this.setState({expandableComponentsData: expandableQuestions});
                 this.setState({formDialogBoxOpen: false});
                 console.log(this.state.questionDataFetched);
+                this.setState({loading: false});
             })
             .catch(err => console.log(err));
 
@@ -170,6 +177,13 @@ class ViewQuestion extends Component {
             {value: 'Biology', label: 'Biology'},
         ];
         return (
+            this.state.loading?<div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
+                    <LoadingOverlay
+                        active={this.state.loading}
+                        spinner={<HeartSpinner size={200} sizeUnit='px'/>}
+                        text='Loading'
+                    />
+            </div>:
             <div className={classes.ViewQuestions}>
                 {this.state.expandableComponentsData.length ?
                     <ExpandableComponents expandableComponentsData={this.state.expandableComponentsData}/>:

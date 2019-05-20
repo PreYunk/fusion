@@ -57,6 +57,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 selectedSection: action.value
             };
+        case actionTypes.RESET_SELECTED_QUESTIONS:
+            return {
+                ...state,
+                selectedQuestions: []
+            };
         default:
             return {...state};
     }

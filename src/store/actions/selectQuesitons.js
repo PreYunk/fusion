@@ -27,3 +27,9 @@ export const setGroupedQuestions = (value) => {
         value: value
     }
 };
+
+export const resetGroupedQuestions = () => {
+    return {
+        type: actionTypes.RESET_GROUPED_QUESTIONS
+    }
+};

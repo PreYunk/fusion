@@ -1,6 +1,54 @@
 .GeneratedPage {
+    display: flex;
+    flex-flow: column;
     width: 100vw;
-    height: 100vh;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     background-color: white;
     color: #000;
+    font-size: 1rem;
 }
+
+ol {
+    padding-left: 20px;
+}
+
+p {
+    margin: 2px;
+}
+.SectionPart {
+    display: flex;
+    flex-flow: column;
+    margin: 20px;
+}
+
+.TypePart {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 10px;
+}
+
+.TypeHeading {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.Question {
+    margin-bottom: 10px;
+    display: list-item;
+    list-style-position: outside;
+    width: 100%;
+}
+
+.SectionHeading {
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+.RowFlex {
+    display: flex;
+    flex-flow: row;
+}
+.TypeListItem {
+    margin-bottom: 20px;
+}
+

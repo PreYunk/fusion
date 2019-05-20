@@ -57,4 +57,10 @@ export const setSelectedSection = (value) => {
     }
 };
 
+export const resetSelectedQuestions = () => {
+    return {
+        type: actionTypes.RESET_SELECTED_QUESTIONS
+    }
+};
+
 

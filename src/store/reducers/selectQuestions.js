@@ -29,6 +29,11 @@ const reducer = (state = initialState, action) => {
               ...state,
               groupedQuestions: action.value
           };
+      case actionTypes.RESET_GROUPED_QUESTIONS:
+          return {
+              ...state,
+              groupedQuestions: null
+          };
       default:
           return state
   }

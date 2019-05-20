@@ -20,6 +20,8 @@ import AddTypeDialog from '../../components/Specifics/AddTypeDialog/AddTypeDialo
 
 import classes from './AddQuestion.css';
 import * as actions from '../../store/actions/index';
+import {HeartSpinner, JellyfishSpinner} from "react-spinners-kit";
+import LoadingOverlay from "react-loading-overlay";
 
 // addMathquillStyles();
 
@@ -33,7 +35,8 @@ class AddQuestion extends Component {
     state = {
         alertDialogOpen: false,
         alertDialogMsg: 'Question Added Successfully',
-        addTypeDialogOpen: false
+        addTypeDialogOpen: false,
+        loading: false
     };
 
     onClickAddTypeHandler = () => {
@@ -69,6 +72,7 @@ class AddQuestion extends Component {
 
     submitButtonClicked = () => {
         const questionRawData = JSON.stringify(convertToRaw(this.props.editorState.getCurrentContent()));
+        this.setState({loading: true});
         const dataToBeExported = {
             id: Math.floor(Math.random() * 1000),
             cls: this.props.cls,
@@ -85,6 +89,7 @@ class AddQuestion extends Component {
                     this.setState({alertDialogOpen: true, alertDialogMsg: 'Question Updated Successfully'});
                     this.props.resetState();
                     console.log(result);
+                    this.setState({loading: false});
                 })
                 .catch(err => {
                     console.log(err);
@@ -96,6 +101,7 @@ class AddQuestion extends Component {
                     this.setState({alertDialogOpen: true, alertDialogMsg: 'Question Added Successfully'});
                     this.props.resetState();
                     console.log(result);
+                    this.setState({loading: false});
                 })
                 .catch(err => {
                     console.log(err);
@@ -127,6 +133,11 @@ class AddQuestion extends Component {
             {value: 3, label: '3'},
             {value: 4, label: '4'},
             {value: 5, label: '5'},
+            {value: 6, label: '6'},
+            {value: 7, label: '7'},
+            {value: 8, label: '8'},
+            {value: 9, label: '9'},
+            {value: 10, label: '10'},
         ];
         const classData = [
             {value: 1, label: 'I'},
@@ -145,18 +156,23 @@ class AddQuestion extends Component {
         const subjectData = [
             {value: 'English I', label: 'English I'},
             {value: 'English II', label: 'English II'},
-            {value: 'Maths', label: 'Maths'},
-            {value: 'History & Civics', label: 'History & Civics'},
-            {value: 'SST', label: 'SST'},
-            {value: 'GK', label: 'GK'},
-            {value: 'Computer', label: 'Computer'},
             {value: 'Hindi', label: 'Hindi'},
-            {value: 'Sanskrit', label: 'Sanskrit'},
-            {value: 'Geography', label: 'Geography'},
+            {value: 'Maths', label: 'Maths'},
             {value: 'Science', label: 'Science'},
+            {value: 'SST', label: 'SST'},
+            {value: 'Sanskrit', label: 'Sanskrit'},
+            {value: 'Computer Science', label: 'Computer Science'},
+            {value: 'IP', label: 'IP'},
+            {value: 'GK', label: 'GK'},
             {value: 'Physics', label: 'Physics'},
             {value: 'Chemistry', label: 'Chemistry'},
             {value: 'Biology', label: 'Biology'},
+            {value: 'Physical Education', label: 'Physical Education'},
+            {value: 'Business Studies', label: 'Business Studies'},
+            {value: 'Accountancy', label: 'Accountancy'},
+            {value: 'Economics', label: 'Economics'},
+            {value: 'History & Civics', label: 'History & Civics'},
+            {value: 'Geography', label: 'Geography'},
         ];
 
 
@@ -204,6 +220,13 @@ class AddQuestion extends Component {
 
         // const latex = '\\frac{1}{\\sqrt{2}}\\cdot 2';
         return (
+            this.state.loading?<div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
+                    <LoadingOverlay
+                        active={this.state.loading}
+                        spinner={<HeartSpinner size={200} sizeUnit='px'/>}
+                        text='Loading'
+                    />
+                </div>:
             <div className={classes.AddQuestion}>
                 <FormComponent labelComponent={idLabel} inputComponent={idValue}/>
                 <FormComponent labelComponent={classLabel} inputComponent={classComboBox}/>

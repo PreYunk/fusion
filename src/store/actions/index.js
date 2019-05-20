@@ -19,12 +19,14 @@ export {
     setPaperTerm,
     setSectionNumbers,
     addToSelectedQuestions,
-    setSelectedSection
+    setSelectedSection,
+    resetSelectedQuestions
 } from './generatePaper';
 
 export {
     setFetchedQuestions,
     setSelectedChapter,
     setSelectedType,
-    setGroupedQuestions
+    setGroupedQuestions,
+    resetGroupedQuestions,
 } from './selectQuesitons';

@@ -1,0 +1,26 @@
+.PaperDetails {
+    border: 1px solid #ffffff;
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+td {
+    border: none;
+}
+hr {
+    border: 1px solid black;
+    display: block;
+    width: 100%;
+}
+
+.UpperDetail {
+    margin-bottom: 3px;
+}
+
+.LeftDetail {
+    text-align: left;
+}
+.RightDetail {
+    text-align: right;
+}
