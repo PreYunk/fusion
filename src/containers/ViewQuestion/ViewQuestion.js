@@ -10,7 +10,7 @@ import {EditorState} from 'draft-js';
 import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
 import FilledButton from '../../components/FilledButton/FilledButton';
 import AlertDialog from '../../components/AlertDialog/AlertDialog';
-import {HeartSpinner} from "react-spinners-kit";
+import {MetroSpinner} from "react-spinners-kit";
 import LoadingOverlay from 'react-loading-overlay';
 import {Editor} from 'react-draft-wysiwyg';
 import axios from 'axios';
@@ -180,7 +180,7 @@ class ViewQuestion extends Component {
             this.state.loading?<div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
                     <LoadingOverlay
                         active={this.state.loading}
-                        spinner={<HeartSpinner size={200} sizeUnit='px'/>}
+                        spinner={<MetroSpinner size={170} sizeUnit='px' color='#52E5AA'/>}
                         text='Loading'
                     />
             </div>:

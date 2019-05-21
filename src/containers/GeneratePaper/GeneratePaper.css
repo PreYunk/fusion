@@ -8,7 +8,7 @@
 .AdditionalDetails {
     display: flex;
     flex-flow: column;
-    margin: 100px 200px 100px 100px;
+    margin: 2vw 5vw 3vw 0;
 }
 
 .AdditionalDetailsControls {
@@ -30,12 +30,12 @@
 }
 
 .DataLists {
-    width: 50vw;
+    width: 40vw;
     display: flex;
     flex-flow: row;
     align-content: space-between;
-    margin: 100px 50px;
+    margin: 50px 25px;
 }
 .DataList {
-    margin: 0 100px;
+    margin: 0 50px;
 }

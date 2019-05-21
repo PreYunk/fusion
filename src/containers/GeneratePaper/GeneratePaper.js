@@ -4,7 +4,6 @@ import List from '../../components/List/List';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Input from '../../components/Input/Input';
-import ComboBox from '../../components/ComboBox/ComboBox';
 import Label from '../../components/Label/Label';
 import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
 import  axios from 'axios';

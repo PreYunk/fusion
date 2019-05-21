@@ -5,9 +5,6 @@ import PaperDetails from '../../components/Specifics/GeneratePageComponents/Pape
 import {connect} from "react-redux";
 import draftToHTML from 'draftjs-to-html';
 import * as actions from '../../store/actions/index';
-import ReactParser from 'react-html-parser';
-import {convertFromRaw} from 'draft-js';
-import Editor from 'react-draft-wysiwyg';
 
 
 class GeneratedPage extends Component {
@@ -29,8 +26,8 @@ class GeneratedPage extends Component {
                     let questionData = draftToHTML(JSON.parse(question.questionData));
                     return (<div className={classes.RowFlex}>
                             <li className={classes.Question}>
-                                <div className={classes.QuestionData}
-                                     dangerouslySetInnerHTML={{__html: questionData}}></div>
+                                <p className={classes.QuestionData}
+                                     dangerouslySetInnerHTML={{__html: questionData}}></p>
                             </li>
                             <span>({question.marks})</span>
                         </div>

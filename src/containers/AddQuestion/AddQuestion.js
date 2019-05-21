@@ -20,7 +20,7 @@ import AddTypeDialog from '../../components/Specifics/AddTypeDialog/AddTypeDialo
 
 import classes from './AddQuestion.css';
 import * as actions from '../../store/actions/index';
-import {HeartSpinner, JellyfishSpinner} from "react-spinners-kit";
+import { MetroSpinner} from "react-spinners-kit";
 import LoadingOverlay from "react-loading-overlay";
 
 // addMathquillStyles();
@@ -223,7 +223,7 @@ class AddQuestion extends Component {
             this.state.loading?<div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
                     <LoadingOverlay
                         active={this.state.loading}
-                        spinner={<HeartSpinner size={200} sizeUnit='px'/>}
+                        spinner={<MetroSpinner size={200} sizeUnit='px' color='#52E5AA'/>}
                         text='Loading'
                     />
                 </div>:
