@@ -30,3 +30,11 @@ export {
     setGroupedQuestions,
     resetGroupedQuestions,
 } from './selectQuesitons';
+
+export {
+    setUsername,
+    setPassword,
+    setActiveUser,
+    setLoginMode,
+    setConfirmPassword
+} from './login'

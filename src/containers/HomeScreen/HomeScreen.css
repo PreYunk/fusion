@@ -3,4 +3,12 @@
     padding: auto;
     display: flex;
     flex-flow: column;
+    align-items: center;
+}
+.HomeScreenControls {
+    display: flex;
+    flex-flow: row;
+    width: 50vw;
+    text-align: center;
+    justify-content: space-around;
 }

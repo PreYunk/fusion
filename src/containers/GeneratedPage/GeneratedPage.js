@@ -26,12 +26,11 @@ class GeneratedPage extends Component {
                     let questionData = draftToHTML(JSON.parse(question.questionData));
                     return (<div className={classes.RowFlex}>
                             <li className={classes.Question}>
-                                <p className={classes.QuestionData}
-                                     dangerouslySetInnerHTML={{__html: questionData}}></p>
+                                <div className={classes.QuestionData}
+                                     dangerouslySetInnerHTML={{__html: questionData}}></div>
                             </li>
                             <span>({question.marks})</span>
                         </div>
-
 
                     )
                 });

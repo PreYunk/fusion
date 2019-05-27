@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Editor} from 'react-draft-wysiwyg';
-import {convertToRaw} from 'draft-js';
+import {convertToRaw, RichUtils} from 'draft-js';
 import '../../assets/css/react-draft-wysiwyg.css';
 import axios from 'axios';
 // import MathQuill , {addStyles as addMathquillStyles} from 'react-mathquill';
@@ -26,7 +26,6 @@ import LoadingOverlay from "react-loading-overlay";
 // addMathquillStyles();
 
 class AddQuestion extends Component {
-
     componentWillMount() {
         console.log(this.props.questionEditStatus);
         this.props.getTypes();
@@ -37,6 +36,12 @@ class AddQuestion extends Component {
         alertDialogMsg: 'Question Added Successfully',
         addTypeDialogOpen: false,
         loading: false
+    };
+
+
+    handleReturn = (event) => {
+      this.props.onEditorStateChange(RichUtils.insertSoftNewline(this.props.editorState));
+      return 'handled';
     };
 
     onClickAddTypeHandler = () => {
@@ -246,8 +251,9 @@ class AddQuestion extends Component {
                 <FormComponent labelComponent={marksLabel} inputComponent={marksComboBox}/>
                 <FormComponent labelComponent={addQuestionLabel} inputComponent={null}/>
                 <Editor
+                    handleReturn={this.handleReturn}
                     editorState={this.props.editorState}
-                    wrapperClassName="demo-wrapper"
+                    wrapperClassName={classes.EditorWrapper}
                     editorClassName={classes.Editor}
                     onEditorStateChange={(editorState) => this.props.onEditorStateChange(editorState)}
                 />

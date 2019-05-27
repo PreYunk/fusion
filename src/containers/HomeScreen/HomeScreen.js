@@ -3,11 +3,11 @@ import {withRouter} from 'react-router-dom';
 import Logo from '../../components/Logo/Logo';
 import Button from '../../components/Button/Button';
 import classes from './HomeScreen.css';
+import * as actions from '../../store/actions/index';
 
 class HomeScreen extends Component {
 
     startButtonClicked = () => {
-        console.log(this.props);
         this.props.history.push('start');
     };
 
@@ -20,5 +20,7 @@ class HomeScreen extends Component {
         );
     }
 }
+
+
 
 export default withRouter(HomeScreen);

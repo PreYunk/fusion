@@ -18,3 +18,7 @@
     width: 500px;
     align-content: space-between;
 }
+
+.EditorWrapper {
+    margin: 0 10px;
+}
