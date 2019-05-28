@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 import LoadingOverlay from 'react-loading-overlay';
 import {MetroSpinner} from 'react-spinners-kit';
 
-const withAuth = (ProtectedComponent) => {
+const withAuth = (ProtectedComponent, activeUser) => {
     return class extends Component {
 
         state = {
