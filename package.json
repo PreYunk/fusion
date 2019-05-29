@@ -2,6 +2,9 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "v10.15.3"
+  },
   "dependencies": {
     "@babel/core": "7.4.3",
     "@material-ui/core": "^3.9.3",
