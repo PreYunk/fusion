@@ -1,0 +1,31 @@
+.DefaultColorButton {
+    margin: 30px;
+    padding: 3px 15px;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #52E5AA;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+    color: #670A67;
+    transform: scale(1.5);
+    font: inherit;
+    border: none;
+}
+
+.RedColorButton {
+    margin: 30px;
+    padding: 3px 15px;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: crimson;
+    -moz-border-radius: 75px;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+    color: black;
+    transform: scale(1.5);
+    font: inherit;
+    border: none;
+}

@@ -24,6 +24,5 @@ yarn-error.log*
 
 
 #source code
-src/*
 build/static/css/*.map
 build/static/js/*.map

@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald|Raleway&display=swap');
+
+@font-face {
+  font-family: ytsans;
+  src: url("./assets/ytsans.woff2");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #670A67;
+  font-family: "Raleway";
+}
+.error {
+  color: #52E5AA;
+  font-size: 50px;
+}

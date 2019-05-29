@@ -1,0 +1,6 @@
+.FilterFormComponent {
+    display: flex;
+    width: 1000px;
+    flex-flow: row;
+    margin: 20px;
+}

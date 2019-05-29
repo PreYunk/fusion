@@ -1,0 +1,28 @@
+.SelectQuestions {
+    margin: 0;
+}
+
+.SelectedSectionComponent {
+    margin: 70px;
+    width: 500px;
+    display: flex;
+    flex-flow: row;
+    align-content: space-between;
+}
+
+.QuestionSelectionArea {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    margin: auto;
+}
+
+.ExpandableComponent {
+    width: 100vw;
+    margin: 0;
+}
+
+.QuestionSelectionControls {
+    width: 25vw;
+    margin-right: 50px;
+}
