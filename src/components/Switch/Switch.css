@@ -1,0 +1,11 @@
+.Switch {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.SwitchLabel {
+    font-family: 'Raleway';
+    font-size: 20px;
+    color: #52E5AA;
+}

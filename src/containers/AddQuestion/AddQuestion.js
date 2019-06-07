@@ -26,8 +26,9 @@ import LoadingOverlay from "react-loading-overlay";
 // addMathquillStyles();
 
 class AddQuestion extends Component {
-    componentWillMount() {
-        console.log(this.props.questionEditStatus);
+
+
+    componentDidMount() {
         this.props.getTypes();
     }
 
@@ -35,7 +36,8 @@ class AddQuestion extends Component {
         alertDialogOpen: false,
         alertDialogMsg: 'Question Added Successfully',
         addTypeDialogOpen: false,
-        loading: false
+        loading: false,
+        accessDeniedAlert: false
     };
 
 
@@ -45,19 +47,27 @@ class AddQuestion extends Component {
     };
 
     onClickAddTypeHandler = () => {
-        this.setState({addTypeDialogOpen: true});
+        if(this.props.activeUser.permissions.addQuestion)
+            this.setState({addTypeDialogOpen: true});
+        else
+            this.setState({accessDeniedAlert: true});
     };
     onAddTypeDialogClose = () => {
         this.setState({addTypeDialogOpen: false});
     };
     onClickAddTypeSubmitHandler = () => {
-        axios.post('/addType', {name: this.props.addType})
-            .then(result => {
-                this.setState({addTypeDialogOpen: false});
-                this.props.getTypes();
-                console.log(result);
-            })
-            .catch(err => console.log(err));
+        if(this.props.activeUser.permissions.addQuestion){
+            axios.post('/addType', {name: this.props.addType})
+                .then(result => {
+                    this.setState({addTypeDialogOpen: false});
+                    this.props.getTypes();
+                    console.log(result);
+                })
+                .catch(err => console.log(err));
+        }
+        else {
+            this.setState({accessDeniedAlert: true});
+        }
 
     };
 
@@ -77,7 +87,6 @@ class AddQuestion extends Component {
 
     submitButtonClicked = () => {
         const questionRawData = JSON.stringify(convertToRaw(this.props.editorState.getCurrentContent()));
-        this.setState({loading: true});
         const dataToBeExported = {
             id: Math.floor(Math.random() * 1000),
             cls: this.props.cls,
@@ -86,8 +95,10 @@ class AddQuestion extends Component {
             marks: this.props.marks,
             chapterName: this.props.chName,
             questionData: questionRawData
+
         };
         if (this.props.questionEditStatus) {
+            this.setState({loading: true});
             axios.post('/updateQuestion',
                 {query: this.props.questionEditId, update: {...dataToBeExported}})
                 .then(result => {
@@ -100,17 +111,25 @@ class AddQuestion extends Component {
                     console.log(err);
                 });
         } else {
-            // axios.post('https://polar-sea-14304.herokuapp.com/api/addQuestion', dataToBeExported)
-            axios.post('/addQuestion', dataToBeExported)
-                .then(result => {
-                    this.setState({alertDialogOpen: true, alertDialogMsg: 'Question Added Successfully'});
-                    this.props.resetState();
-                    console.log(result);
-                    this.setState({loading: false});
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            if(this.props.activeUser.permissions.addQuestion) {
+                this.setState({loading: true});
+                dataToBeExported.user = this.props.activeUser.userId;
+                // axios.post('https://polar-sea-14304.herokuapp.com/api/addQuestion', dataToBeExported)
+                axios.post('/addQuestion', dataToBeExported)
+                    .then(result => {
+                        this.setState({alertDialogOpen: true, alertDialogMsg: 'Question Added Successfully'});
+                        this.props.resetState();
+                        console.log(result);
+                        this.setState({loading: false});
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+            else {
+                this.props.resetState();
+                this.setState({accessDeniedAlert: true});
+            }
 
         }
 
@@ -263,11 +282,20 @@ class AddQuestion extends Component {
                 <AlertDialogBox
                     fullScreen={false}
                     isOpen={this.state.alertDialogOpen}
-                    onClose={this.alterDialogBoxCloseHandler}
+                    onClose={this.alertDialogBoxCloseHandler}
                     dialogTitle={'Success'}
                     dialogContentText={this.state.alertDialogMsg}
                     buttonText='OK'
                     onClickButton={this.alertDialogBoxCloseHandler}
+                />
+                <AlertDialogBox
+                    fullScreen={false}
+                    isOpen={this.state.accessDeniedAlert}
+                    onClose={() => this.setState({accessDeniedAlert: false})}
+                    dialogTitle={'Access Denied'}
+                    dialogContentText="You don't have enough permissions"
+                    buttonText='Accept'
+                    onClickButton={() => this.setState({accessDeniedAlert: false})}
                 />
 
             </div>
@@ -286,7 +314,8 @@ const mapStateToProps = (state) => {
         questionEditStatus: state.addQuestionReducer.questionEditStatus,
         questionEditId: state.addQuestionReducer.questionEditId,
         addType: state.addQuestionReducer.addType,
-        types: state.addQuestionReducer.types
+        types: state.addQuestionReducer.types,
+        activeUser: state.loginReducer.activeUser
     }
 };
 

@@ -1,12 +1,17 @@
 import * as actionTypes from '../actions/actionTypes';
 
+
+//this initial state is also set on StartPage.js
 const initialState = {
     username: '',
     password: '',
     confirmPassword: '',
     activeUser: {
         permissions: {
-            createUser: false
+            createUser: false,
+            addQuestion: false,
+            updateQuestion: false,
+            generateQuestion: false
         },
         username: ' '
     },
@@ -29,6 +34,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeUser: {
+                    userId: action.value.userId,
                     username: action.value.username,
                     permissions: {
                         ...action.value.permissions

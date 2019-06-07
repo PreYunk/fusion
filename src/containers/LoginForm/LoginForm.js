@@ -8,12 +8,20 @@ import Label from '../../components/Label/Label';
 import Input from '../../components/Input/Input';
 import * as actions from '../../store/actions/index';
 import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
+import Switch from '../../components/Switch/Switch';
+
 
 class LoginForm extends Component {
 
     state = {
         loginMessage: ' ',
-        authenticateButtonEnabled: false
+        authenticateButtonEnabled: false,
+        permissions: {
+            createUser: false,
+            addQuestion: false,
+            generateQuestion: false,
+            updateQuestion: false
+        }
     };
 
     onChangeUsername = (event) => {
@@ -27,9 +35,7 @@ class LoginForm extends Component {
         const loginData = {
             username: this.props.username,
             password: this.props.password,
-            permissions: {
-                createUser: false
-            }
+            permissions: this.state.permissions
         };
         this.props.setUsername('');
         this.props.setPassword('');
@@ -77,6 +83,12 @@ class LoginForm extends Component {
     };
     loginClickHandler = () => {
         this.props.setLoginMode(true);
+    };
+    handlePermissionChange = (name,event )=> {
+        let permissions = {...this.state.permissions};
+        permissions[name] = event.target.checked;
+        console.log(permissions);
+        this.setState({permissions: permissions});
     };
 
 
@@ -156,7 +168,31 @@ class LoginForm extends Component {
                                    type='password'
                                    value={this.props.confirmPassword}
                             />
-                        </div>}
+                        </div>
+                    }
+                    {this.props.loginMode?null :
+                        <div className={classes.FormComponent}>
+                            <div className={classes.SignUpPrompt}>
+                                <Switch text="Could Create User?"
+                                        onChange={(event) => this.handlePermissionChange('createUser',event)}
+                                        checked={this.state.permissions.createUser}
+                                />
+                                <Switch text="Could Add Question?"
+                                        onChange={(event) => this.handlePermissionChange('addQuestion',event)}
+                                        checked={this.state.permissions.addQuestion}
+                                />
+                                <Switch text="Could Update Questions?"
+                                        onChange={(event) => this.handlePermissionChange('updateQuestion',event)}
+                                        checked={this.state.permissions.updateQuestion}
+                                />
+                                <Switch text="Could Generate Question?"
+                                        onChange={(event) => this.handlePermissionChange('generateQuestion',event)}
+                                        checked={this.state.permissions.generateQuestion}
+                                />
+                            </div>
+                        </div>
+                    }
+
                     <div className={classes.FormComponent}>
                         <Label text={this.state.loginMessage}/>
                     </div>

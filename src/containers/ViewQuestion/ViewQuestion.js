@@ -31,30 +31,59 @@ class ViewQuestion extends Component {
         expandableComponentsData: [],
         previewOpen: false,
         previewEditorState: EditorState.createEmpty(),
-        loading: false
+        loading: false,
+        updateQuestionAccess: false,
+        updateQuestionDeniedAlert: false
     };
+
+    componentDidMount() {
+        this.setState({updateQuestionAccess: this.props.activeUser.permissions.updateQuestion});
+        console.log(this.props.activeUser.permissions.updateQuestion);
+    }
 
     onEditorStateChangeHandler = (editorState) => {
         this.setState({previewEditorState: editorState})
     };
     previewButtonClickHandler = (editorState) => {
         const prevEditorState = EditorState.createWithContent(editorState);
-        this.setState({previewEditorState: prevEditorState,previewOpen: true});
+        this.setState({previewEditorState: prevEditorState, previewOpen: true});
     };
-    deleteButtonClickHandler = (questionId) => {
-        this.setState({loading: true});
-        axios.delete('/deleteQuestion',{data: {id: questionId}})
-            .then(result => {
-                this.setState({deleteDialogBoxOpen: true});
-                console.log(result);
-                this.setState({loading: false});
-            })
-            .catch(err => console.log(err));
+    deleteButtonClickHandler = (questionId, user) => {
+        console.log(this.state.updateQuestionAccess);
+        console.log('Question Added by  ' + user._id);
+        console.log('Active User ' + this.props.activeUser.userId);
+        console.log(user._id === this.props.activeUser.userId);
+        if (this.state.updateQuestionAccess || user._id === this.props.activeUser.userId) {
+            this.setState({loading: true});
+            axios.delete('/deleteQuestion', {data: {id: questionId}})
+                .then(result => {
+                    this.setState({deleteDialogBoxOpen: true});
+                    console.log(result);
+                    this.setState({loading: false});
+                })
+                .catch(err => console.log(err));
+        }
+        else
+            this.setState({updateQuestionDeniedAlert: true});
     };
 
 
     editButtonClickHandler = (questionEditData) => {
         console.log(questionEditData._id);
+        console.log(this.state.updateQuestionAccess);
+        console.log('Question Added by  ' + questionEditData.user._id);
+        console.log('Active User ' + this.props.activeUser.userId);
+        console.log(questionEditData.user._id === this.props.activeUser.userId);
+        if (this.state.updateQuestionAccess || questionEditData.user._id === this.props.activeUser.userId) {
+            this.performQuestionEdit(questionEditData);
+        } else {
+            console.log('exec else');
+            this.setState({updateQuestionDeniedAlert: true});
+        }
+
+    };
+
+    performQuestionEdit = (questionEditData) => {
         this.props.setChapterName(questionEditData.chapterName);
         this.props.setClass(questionEditData.cls);
         this.props.setSubject(questionEditData.subject);
@@ -65,7 +94,6 @@ class ViewQuestion extends Component {
         this.props.setEditorState(editorState);
         this.props.setQuestionEditStatus(true, questionEditData._id);
         this.props.history.push('/start/add');
-
     };
 
     formAcceptHandler = () => {
@@ -78,14 +106,14 @@ class ViewQuestion extends Component {
             queryString = '?class=' + this.state.classFilter;
         console.log('Form Submitted');
         this.setState({loading: true});
-        axios.get('/getQuestions'+queryString)
+        axios.get('/getQuestions' + queryString)
         // axios.get('https://polar-sea-14304.herokuapp.com/api/getQuestions'+queryString)
             .then(questions => {
                 console.log(queryString);
                 this.setState({questionDataFetched: questions.data.data});
                 const expandableQuestions = questions.data.data.map(question => {
                     const questionDetails = <div className={classes.QuestionDetailsDiv}>
-                        <ul className={classes.QuestionDetails} >
+                        <ul className={classes.QuestionDetails}>
                             <li className={classes.QuestionDetail}>Subject: {question.subject}</li>
                             <li className={classes.QuestionDetail}>Class: {question.cls}</li>
                             <li className={classes.QuestionDetail}>Type: {question.type}</li>
@@ -96,18 +124,24 @@ class ViewQuestion extends Component {
                     const expandableActions = <div className={classes.ExpandableActions}>
                         <MaterialFab onClick={() => this.previewButtonClickHandler(editorState)}>Preview</MaterialFab>
                         <MaterialFab onClick={() => this.editButtonClickHandler(question)}>Edit</MaterialFab>
-                        <MaterialFab onClick={() => this.deleteButtonClickHandler(question._id)}>Delete</MaterialFab>
+                        <MaterialFab
+                            onClick={() => this.deleteButtonClickHandler(question._id, question.user)}>Delete</MaterialFab>
                     </div>;
                     let rawQue = editorState.getPlainText();
-                    if(rawQue.length >=50)
-                        rawQue = rawQue.slice(0,51);
+                    if (rawQue.length >= 50)
+                        rawQue = rawQue.slice(0, 51);
                     const expSummaryComponent = <div className={classes.SummaryComponents}>
                         <span className={classes.SummaryComponent}>{rawQue}</span>
                         <span className={classes.SummaryComponent}>Ch. No. {question.chapterName}</span>
                         <span className={classes.SummaryComponent}>Class: {question.cls}</span>
                         <span className={classes.SummaryComponent}>{question.subject}</span>
                     </div>;
-                    return {summary: '', summaryComponent: expSummaryComponent, detail: questionDetails, actions: expandableActions};
+                    return {
+                        summary: '',
+                        summaryComponent: expSummaryComponent,
+                        detail: questionDetails,
+                        actions: expandableActions
+                    };
                 });
                 this.setState({expandableComponentsData: expandableQuestions});
                 this.setState({formDialogBoxOpen: false});
@@ -177,36 +211,48 @@ class ViewQuestion extends Component {
             {value: 'Biology', label: 'Biology'},
         ];
         return (
-            this.state.loading?<div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
+            this.state.loading ? <div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
                     <LoadingOverlay
                         active={this.state.loading}
                         spinner={<MetroSpinner size={170} sizeUnit='px' color='#52E5AA'/>}
                         text='Loading'
                     />
-            </div>:
-            <div className={classes.ViewQuestions}>
-                {this.state.expandableComponentsData.length ?
-                    <ExpandableComponents expandableComponentsData={this.state.expandableComponentsData}/>:
-                    <h1 className={classes.NoQuestionsHeading}>Press Filter to display questions</h1>
-                }
-                <div className={classes.ViewQuestionsControls}>
-                    <FilledButton buttonType='default' text='Filter' buttonClicked={this.filterButtonClickHandler}/>
-                </div>
-                <AlertDialog
-                    isOpen={this.state.deleteDialogBoxOpen}
-                    dialogTitle='Delete Successful'
-                    onClickButton={() => {this.formAcceptHandler();this.setState({deleteDialogBoxOpen: false})}}
-                    buttonText='Continue'
-                    dialogContentText='Question Deleted Successfully'
-                />
-                <AlertDialog
-                    fullScreen={true}
-                    isOpen={this.state.previewOpen}
-                    dialogTitle='Preview Question'
-                    onClickButton={this.previewAlertDialogSubmitButtonHandler}
-                    buttonText='OK'
-                    dialogContentText=' '
-                    dialogContentComponent=
+                </div> :
+                <div className={classes.ViewQuestions}>
+                    {this.state.expandableComponentsData.length ?
+                        <ExpandableComponents expandableComponentsData={this.state.expandableComponentsData}/> :
+                        <h1 className={classes.NoQuestionsHeading}>Press Filter to display questions</h1>
+                    }
+                    <div className={classes.ViewQuestionsControls}>
+                        <FilledButton buttonType='default' text='Filter' buttonClicked={this.filterButtonClickHandler}/>
+                    </div>
+                    <AlertDialog
+                        isOpen={this.state.deleteDialogBoxOpen}
+                        dialogTitle='Delete Successful'
+                        onClickButton={() => {
+                            this.formAcceptHandler();
+                            this.setState({deleteDialogBoxOpen: false})
+                        }}
+                        buttonText='Continue'
+                        dialogContentText='Question Deleted Successfully'
+                    />
+                    <AlertDialog
+                        isOpen={this.state.updateQuestionDeniedAlert}
+                        dialogTitle='Access Denied'
+                        onClickButton={() => {
+                            this.setState({updateQuestionDeniedAlert: false})
+                        }}
+                        buttonText='Accept'
+                        dialogContentText='You dont have enough permissions to update this question'
+                    />
+                    <AlertDialog
+                        fullScreen={true}
+                        isOpen={this.state.previewOpen}
+                        dialogTitle='Preview Question'
+                        onClickButton={this.previewAlertDialogSubmitButtonHandler}
+                        buttonText='OK'
+                        dialogContentText=' '
+                        dialogContentComponent=
                             {<Editor
                                 readOnly
                                 toolbarHidden
@@ -216,30 +262,36 @@ class ViewQuestion extends Component {
                                 onEditorStateChanged={(editorState) => this.onEditorStateChangeHandler(editorState)}
                             />}
 
-                />
-                <FormDialog
-                    isOpen={this.state.formDialogBoxOpen}
-                    onClose={this.handleFormDialogClose}
-                    dialogTitle='Filter'
-                    dialogContentText='Field not required must be unchecked'
-                    okButtonText='Done'
-                    okButtonClicked={this.formAcceptHandler}
-                    formComponent={<FilterFormComponent subjectFilterState={this.state.subjectFilter}
-                                                        subjectStateChanged={this.subjectStateChanged}
-                                                        subjectData={subjectData}
-                                                        classData={classData}
-                                                        classFilterState={this.state.classFilter}
-                                                        classStateChanged={this.classStateChanged}
-                                                        switchChangeHandler={(value) => this.switchStateChanged(value)}
-                                                        classSwitchChecked={this.state.classFilterEnabled}
-                                                        subjectSwitchChecked={this.state.subjectFilterEnabled}
+                    />
+                    <FormDialog
+                        isOpen={this.state.formDialogBoxOpen}
+                        onClose={this.handleFormDialogClose}
+                        dialogTitle='Filter'
+                        dialogContentText='Field not required must be unchecked'
+                        okButtonText='Done'
+                        okButtonClicked={this.formAcceptHandler}
+                        formComponent={<FilterFormComponent subjectFilterState={this.state.subjectFilter}
+                                                            subjectStateChanged={this.subjectStateChanged}
+                                                            subjectData={subjectData}
+                                                            classData={classData}
+                                                            classFilterState={this.state.classFilter}
+                                                            classStateChanged={this.classStateChanged}
+                                                            switchChangeHandler={(value) => this.switchStateChanged(value)}
+                                                            classSwitchChecked={this.state.classFilterEnabled}
+                                                            subjectSwitchChecked={this.state.subjectFilterEnabled}
 
-                    />}
-                />
-            </div>
+                        />}
+                    />
+                </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        activeUser: state.loginReducer.activeUser
+    }
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -253,4 +305,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(ViewQuestion));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ViewQuestion));

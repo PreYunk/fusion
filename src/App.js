@@ -21,7 +21,7 @@ class App extends Component {
             const user = jwt.decode(localStorage.getItem('token'));
             const currentTime = new Date().getTime() / 1000;
             if(currentTime < user.exp) {
-                this.props.setActiveUser({username: user.username, permissions: user.permissions});
+                this.props.setActiveUser({userId:user.userId,username: user.username, permissions: user.permissions});
             }
             else {
                 localStorage.removeItem('token');

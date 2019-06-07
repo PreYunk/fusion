@@ -11,9 +11,13 @@ class StartPage extends Component {
         localStorage.removeItem('token');
 
         const initialActiveUser = {
+            userId:null,
             username: ' ',
             permissions: {
-                createUser: false
+                createUser: false,
+                addQuestion: false,
+                updateQuestion: false,
+                generateQuestion: false
             }
         };
         this.props.setActiveUser(initialActiveUser);
