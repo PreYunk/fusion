@@ -26,7 +26,7 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 const app = window.innerWidth >= 500 ?
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/fusion">
             <App/>
         </BrowserRouter>
     </Provider>: <h1 style={{color: '#52E5AA'}}>THIS APP IS NOT SUPPORTED FOR MOBILE DEVICES YET </h1>;
