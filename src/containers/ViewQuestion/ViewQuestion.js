@@ -118,6 +118,7 @@ class ViewQuestion extends Component {
                             <li className={classes.QuestionDetail}>Class: {question.cls}</li>
                             <li className={classes.QuestionDetail}>Type: {question.type}</li>
                             <li className={classes.QuestionDetail}>Marks: {question.marks}</li>
+                            <li className={classes.QuestionDetail}>CreatedBy: {question.user.username}</li>
                         </ul>
                     </div>;
                     const editorState = convertFromRaw(JSON.parse(question.questionData));
@@ -250,7 +251,7 @@ class ViewQuestion extends Component {
                         isOpen={this.state.previewOpen}
                         dialogTitle='Preview Question'
                         onClickButton={this.previewAlertDialogSubmitButtonHandler}
-                        buttonText='OK'
+                        buttonText='Close'
                         dialogContentText=' '
                         dialogContentComponent=
                             {<Editor

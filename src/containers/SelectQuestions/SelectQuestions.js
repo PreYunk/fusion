@@ -104,6 +104,7 @@ class SelectQuestions extends Component {
                         <li className={viewQuestionClasses.QuestionDetail}>Class: {question.cls}</li>
                         <li className={viewQuestionClasses.QuestionDetail}>Type: {question.type}</li>
                         <li className={viewQuestionClasses.QuestionDetail}>Marks: {question.marks}</li>
+                        <li className={viewQuestionClasses.QuestionDetail}>CreatedBy: {question.user.username}</li>
                     </ul>
                 </div>;
                 const editorState = convertFromRaw(JSON.parse(question.questionData));
