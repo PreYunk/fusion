@@ -28,9 +28,11 @@
     margin: 1.7vw 0;
     padding: 0.1vw 1vw;
     border: 5px solid transparent;
+    transition: transform 100ms ease-in;
 }
 
 .Options a:hover {
+    transform: scale(1.2);
     border: 5px solid #670A67;
     border-radius: 10px;
     background-color: #670A67;
@@ -60,7 +62,4 @@
     display: flex;
     flex-flow: row;
     background-color: #670A67;
-}
-.NavControl {
-
 }

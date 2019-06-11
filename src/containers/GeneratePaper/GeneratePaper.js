@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import classes from './GeneratePaper.css';
 import List from '../../components/List/List';
 import {connect} from 'react-redux';
@@ -6,7 +7,8 @@ import * as actions from '../../store/actions/index';
 import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import MaterialFab from '../../components/MaterialComponents/MaterialFab/MaterialFab';
-import  axios from 'axios';
+import axios from 'axios';
+import CSSTransition from "react-transition-group/CSSTransition";
 
 class GeneratePaper extends Component {
 
@@ -66,7 +68,7 @@ class GeneratePaper extends Component {
     };
 
     generateNextButtonClicked = () => {
-        axios.get('/getQuestions?class='+this.props.paperClassValue+'&subject='+this.props.paperSubject)
+        axios.get('/getQuestions?class=' + this.props.paperClassValue + '&subject=' + this.props.paperSubject)
             .then(result => {
                 console.log(result.data.data);
                 this.props.setFetchedQuestions(result.data.data);
@@ -233,53 +235,75 @@ class GeneratePaper extends Component {
                             header='Class:'
                         />
                     </div>
-                    <div className={classes.DataList}>
-                        <List
-                            listData={subjectData}
-                            header='Subject:'
-                        />
-                    </div>
+                    <CSSTransition in={this.state.classSelectedIndex >= 0}
+                                   timeout={300}
+                                   mountOnEnter
+                                   unmountOnExit
+                                   classNames={{
+                                       enter: classes.SubjectRevealEnter,
+                                       enterActive: classes.SubjectRevealEnterActive
+                                   }}
+
+                    >
+                        <div className={classes.DataList}>
+                            <List
+                                listData={subjectData}
+                                header='Subject:'
+                            />
+                        </div>
+                    </CSSTransition>
 
                 </div>
 
-                <div className={classes.AdditionalDetails}>
-                    <Label text='Additional Details:'/>
-                    <div className={classes.AdditionalDetailsControls}>
-                        <div className={classes.AdditionalDetailsControl}>
-                            <Label text='Time (Hrs): '/>;
-                            <Input name='time' onChange={(event) => this.props.setPaperTime(event.target.value)}
-                                   value={this.props.paperTime} placeholder='Time' type='number'/>;
+                <CSSTransition
+                    in={this.state.subjectSelectedIndex>=0}
+                    mountOnEnter
+                    unmountOnExit
+                    timeout={300}
+                    classNames={{
+                        enter: classes.OptionsRevealEnter,
+                        enterActive: classes.OptionsRevealEnterActive
+                    }}
+                >
+                    <div className={classes.AdditionalDetails}>
+                        <Label text='Additional Details:'/>
+                        <div className={classes.AdditionalDetailsControls}>
+                            <div className={classes.AdditionalDetailsControl}>
+                                <Label text='Time (Hrs): '/>;
+                                <Input name='time' onChange={(event) => this.props.setPaperTime(event.target.value)}
+                                       value={this.props.paperTime} placeholder='Time' type='number'/>;
+                            </div>
+                            <div className={classes.AdditionalDetailsControl}>
+                                <Label text='MM: '/>;
+                                <Input name='mm' onChange={(event) => this.props.setPaperMM(event.target.value)}
+                                       value={this.props.paperMM} placeholder='Max Marks' type='number'/>
+                            </div>
+                            <div className={classes.AdditionalDetailsControl}>
+                                <Label text='Name of Examination: '/>;
+                                <Input
+                                    name='exam'
+                                    value={this.props.paperTerm}
+                                    onChange={(event) => this.props.setPaperTerm(event.target.value)}
+                                    placeholder='Name of Exam'
+                                />
+                            </div>
+                            <div className={classes.AdditionalDetailsControl}>
+                                <Label text='No. of Sections: '/>;
+                                <Input
+                                    name='sectionNumbers'
+                                    onChange={(event) => this.props.setSectionNumbers(event.target.value)}
+                                    value={this.props.sectionNumbers}
+                                    placeholder='Sections'
+                                    type='number'
+                                />
+                            </div>
                         </div>
-                        <div className={classes.AdditionalDetailsControl}>
-                            <Label text='MM: '/>;
-                            <Input name='mm' onChange={(event) => this.props.setPaperMM(event.target.value)}
-                                   value={this.props.paperMM} placeholder='Max Marks' type='number'/>
+                        <div style={{textAlign: 'right'}}>
+                            <MaterialFab onClick={this.generateNextButtonClicked}>Next</MaterialFab>
                         </div>
-                        <div className={classes.AdditionalDetailsControl}>
-                            <Label text='Name of Examination: '/>;
-                            <Input
-                                name='exam'
-                                value={this.props.paperTerm}
-                                onChange={(event) => this.props.setPaperTerm(event.target.value)}
-                                placeholder='Name of Exam'
-                            />
-                        </div>
-                        <div className={classes.AdditionalDetailsControl}>
-                            <Label text='No. of Sections: '/>;
-                            <Input
-                                name='sectionNumbers'
-                                onChange={(event) => this.props.setSectionNumbers(event.target.value)}
-                                value={this.props.sectionNumbers}
-                                placeholder='Sections'
-                                type='number'
-                            />
-                        </div>
-                    </div>
-                    <div style={{textAlign: 'right'}}>
-                        <MaterialFab onClick={this.generateNextButtonClicked}>Next</MaterialFab>
-                    </div>
 
-                </div>
+                    </div>
+                </CSSTransition>
             </div>
         );
     }

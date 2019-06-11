@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Button.css';
 
-const button = (props) => {
+const Button = (props) => {
+
     return (
         <button
             className={classes.Button}
-            onClick={props.onButtonClicked}
+            onClick={() => {
+                props.onButtonClicked();
+            }}
         >
             {props.text}
         </button>
     );
 };
 
-export default button;
+export default Button;

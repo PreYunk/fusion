@@ -10,7 +10,11 @@ const styles = () => ({
        fontFamily: 'Raleway',
        fontWeight: '700',
        width: '150px',
-       marginTop: '50px'
+       marginTop: '50px',
+       transition: 'transform 100ms ease-in',
+       '&:hover' : {
+           transform: 'scale(1.2)'
+       }
    }
 });
 

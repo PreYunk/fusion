@@ -1,10 +1,9 @@
 .DefaultColorButton {
     margin: 30px;
     padding: 3px 15px;
-    background: none;
     cursor: pointer;
     text-decoration: none;
-    background-color: #52E5AA;
+    background: #52E5AA none;
     -moz-border-radius: 75px;
     -webkit-border-radius: 75px;
     border-radius: 75px;
@@ -12,15 +11,15 @@
     transform: scale(1.5);
     font: inherit;
     border: none;
+    transition: transform 100ms ease-out;
 }
 
 .RedColorButton {
     margin: 30px;
     padding: 3px 15px;
-    background: none;
     cursor: pointer;
     text-decoration: none;
-    background-color: crimson;
+    background: crimson none;
     -moz-border-radius: 75px;
     -webkit-border-radius: 75px;
     border-radius: 75px;
@@ -28,4 +27,19 @@
     transform: scale(1.5);
     font: inherit;
     border: none;
+    transition: transform 100ms ease-out;
+}
+
+.DefaultColorButton:hover  {
+    transform: scale(1.9);
+}
+.DefaultColorButton:active {
+    transform: scale(1.3);
+}
+
+.RedColorButton:hover  {
+    transform: scale(1.9);
+}
+.RedColorButton:active {
+    transform: scale(1.3);
 }

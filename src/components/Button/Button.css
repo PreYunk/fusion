@@ -11,9 +11,15 @@
     color: #52E5AA;
     font-family: 'Raleway';
     font-size: 2vw;
+    transition: transform 100ms ease-out;
 }
 
 .Button:hover {
     background-color: #52E5AA;
     color: #670A67;
+    transform: scale(1.2);
 }
+.Button:active {
+    transform: scale(0.9);
+}
+

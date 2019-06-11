@@ -9,6 +9,7 @@
     display: flex;
     flex-flow: column;
     margin: 2vw 5vw 3vw 0;
+    transition: all 300ms ease-in;
 }
 
 .AdditionalDetailsControls {
@@ -35,7 +36,30 @@
     flex-flow: row;
     align-content: space-between;
     margin: 50px 25px;
+
 }
+
+.SubjectRevealEnter {
+    opacity: 0.01;
+    transform: translateX(-30px);
+}
+
+.SubjectRevealEnterActive {
+    opacity: 1;
+    transform: translateX(30px);
+}
+
+.OptionsRevealEnter {
+    opacity: 0.01;
+    transform: translateX(-30px);
+}
+
+.OptionsRevealEnterActive {
+    opacity: 1;
+    transform: translateX(30px);
+}
+
 .DataList {
-    margin: 0 50px;
+    margin: 0 100px;
+    transition: all 300ms ease-in;
 }
