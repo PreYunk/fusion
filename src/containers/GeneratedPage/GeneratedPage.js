@@ -29,7 +29,7 @@ class GeneratedPage extends Component {
                                 <div className={classes.QuestionData}
                                      dangerouslySetInnerHTML={{__html: questionData}}></div>
                             </li>
-                            <span>({question.marks})</span>
+                            <span>&nbsp;&nbsp;&nbsp;({question.marks})</span>
                         </div>
 
                     )
