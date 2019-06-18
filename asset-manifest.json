@@ -1,17 +1,16 @@
 {
   "files": {
-    "main.css": "/fusion/static/css/main.2095f982.chunk.css",
-    "main.js": "/fusion/static/js/main.4528a343.chunk.js",
-    "main.js.map": "/fusion/static/js/main.4528a343.chunk.js.map",
+    "main.css": "/fusion/static/css/main.b67130ac.chunk.css",
+    "main.js": "/fusion/static/js/main.4ed3b6c3.chunk.js",
+    "main.js.map": "/fusion/static/js/main.4ed3b6c3.chunk.js.map",
     "runtime~main.js": "/fusion/static/js/runtime~main.bb9caf1f.js",
     "runtime~main.js.map": "/fusion/static/js/runtime~main.bb9caf1f.js.map",
-    "static/js/2.06646780.chunk.js": "/fusion/static/js/2.06646780.chunk.js",
-    "static/js/2.06646780.chunk.js.map": "/fusion/static/js/2.06646780.chunk.js.map",
+    "static/js/2.ada930f1.chunk.js": "/fusion/static/js/2.ada930f1.chunk.js",
+    "static/js/2.ada930f1.chunk.js.map": "/fusion/static/js/2.ada930f1.chunk.js.map",
     "index.html": "/fusion/index.html",
-    "precache-manifest.2998f9b5cbde1d4e9f75d9f8514b55ca.js": "/fusion/precache-manifest.2998f9b5cbde1d4e9f75d9f8514b55ca.js",
+    "precache-manifest.47c24bec260cfc67cf3b0c57b72d9311.js": "/fusion/precache-manifest.47c24bec260cfc67cf3b0c57b72d9311.js",
     "service-worker.js": "/fusion/service-worker.js",
-    "static/css/main.2095f982.chunk.css.map": "/fusion/static/css/main.2095f982.chunk.css.map",
-    "static/media/logo.svg": "/fusion/static/media/logo.ef58919d.svg",
+    "static/css/main.b67130ac.chunk.css.map": "/fusion/static/css/main.b67130ac.chunk.css.map",
     "static/media/index.css": "/fusion/static/media/ytsans.32fe707f.woff2"
   }
 }
