@@ -11,7 +11,7 @@ class StartPage extends Component {
         localStorage.removeItem('token');
 
         const initialActiveUser = {
-            userId:null,
+            userId: null,
             username: ' ',
             permissions: {
                 createUser: false,
@@ -45,6 +45,7 @@ class StartPage extends Component {
                             <MaterialFab variant='extended' onClick={this.createUserClickHandler}>Create
                                 User</MaterialFab> :
                             null}
+                        {}
 
                         <MaterialFab variant='extended' onClick={this.logoutClickHandler}>Log out</MaterialFab>
                     </div>

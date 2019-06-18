@@ -7,10 +7,10 @@ const styles = () => ({
     switchBase: {
         color: 'white',
         '&$checked': {
-            color: '#52E5AA'
+            color: '#313131'
         },
         '&$checked + $track': {
-            backgroundColor: '#52E5AA'
+            backgroundColor: '#313131'
         }
     },
     checked: {},

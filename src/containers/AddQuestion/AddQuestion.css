@@ -3,11 +3,13 @@
     font-family: 'Raleway';
 }
 .Editor {
-    background-color: #52E5AA;
+    border: 1px solid #313131;
+    background-color: #f1f1f1;
     height: 500px;
     width: 100%;
-    color: #670A67;
+    color: #313131;
     font-size: 2rem;
+    padding: 20px;
 }
 
 .TypeComponents {
@@ -17,6 +19,7 @@
     flex-flow: row;
     width: 500px;
     align-content: space-between;
+    align-items: flex-start;
 }
 
 .EditorWrapper {

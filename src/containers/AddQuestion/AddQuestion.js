@@ -247,12 +247,11 @@ class AddQuestion extends Component {
             this.state.loading?<div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
                     <LoadingOverlay
                         active={this.state.loading}
-                        spinner={<MetroSpinner size={200} sizeUnit='px' color='#52E5AA'/>}
-                        text='Loading'
+                        spinner={<MetroSpinner size={100} sizeUnit='px' color='#52E5AA'/>}
+                        text={<span style={{color: '#313131'}}>LOADING...</span>}
                     />
                 </div>:
             <div className={classes.AddQuestion}>
-                <FormComponent labelComponent={idLabel} inputComponent={idValue}/>
                 <FormComponent labelComponent={classLabel} inputComponent={classComboBox}/>
                 <FormComponent labelComponent={subjectLabel} inputComponent={subjectComboBox}/>
                 <FormComponent labelComponent={chapterNameLabel} inputComponent={chapterNameInput}/>

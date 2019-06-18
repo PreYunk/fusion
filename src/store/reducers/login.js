@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 
 //this initial state is also set on StartPage.js
+//if you want to change initial state make sure to change in StartPage.js
 const initialState = {
     username: '',
     password: '',

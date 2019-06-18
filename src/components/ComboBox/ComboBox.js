@@ -5,7 +5,8 @@ import {withStyles} from "@material-ui/core/styles";
 
 const styles = {
     root: {
-        backgroundColor: '#52E5AA',
+        border: '1px solid #313131',
+        backgroundColor: '#f1f1f1',
         width: '150px',
         borderRadius: '50px',
         textAlign: 'center'
@@ -19,8 +20,10 @@ const comboBox = (props) => {
     });
     return (
       <Select value={props.value}
+              disableUnderline={true}
               classes={{root: classes.root}}
               onChange={props.onChange}
+              variant={"outlined"}
       >
           {menuItems}
       </Select>

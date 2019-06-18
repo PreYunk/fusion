@@ -10,30 +10,33 @@ const styles = (theme) => ({
         marginBottom: '30px'
     },
     headerStyle: {
-        color: '#52E5AA',
+        color: '#313131',
         fontSize: theme.typography.pxToRem(25)
     },
     listRoot450: {
         maxHeight: '450px',
         width: 'auto',
         overflow: 'auto',
-        backgroundColor: '#52E5AA',
+        backgroundColor: '#f1f1f1',
         borderRadius: '6px',
-        color: '#670A67',
-        marginTop: '20px'
+        color: '#313131',
+        marginTop: '20px',
+        border: '1px solid #313131'
     },
     listRoot100: {
         maxHeight: '150px',
         width: 'auto',
         overflow: 'auto',
-        backgroundColor: '#52E5AA',
+        backgroundColor: '#f1f1f1',
         borderRadius: '6px',
-        color: '#670A67',
-        marginTop: '20px'
+        color: '#313131',
+        marginTop: '20px',
+        border: '1px solid #313131'
+
     },
     selectedListItem: {
-        backgroundColor: '#670A67 !important',
-        color: '#52E5AA'
+        backgroundColor: '#313131 !important',
+        color: '#f1f1f1'
     }
 });
 

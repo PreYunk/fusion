@@ -4,19 +4,19 @@
     background: none;
     cursor: pointer;
     text-decoration: none;
-    border:solid 5px #52E5AA;
+    border:solid 5px #313131;
     -moz-border-radius: 75px;
     -webkit-border-radius: 75px;
     border-radius: 75px;
-    color: #52E5AA;
+    color: #313131;
     font-family: 'Raleway';
     font-size: 2vw;
     transition: transform 100ms ease-out;
 }
 
 .Button:hover {
-    background-color: #52E5AA;
-    color: #670A67;
+    background-color: #313131;
+    color: #f1f1f1;
     transform: scale(1.2);
 }
 .Button:active {

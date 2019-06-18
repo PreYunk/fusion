@@ -8,7 +8,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
     root: {
-        backgroundColor: '#500a50',
+        backgroundColor: '#bdbcbf',
         boxShadow: 'none',
         fontWeight: '700',
 
@@ -22,13 +22,13 @@ const styles = theme => ({
         fontSize: theme.typography.pxToRem(25),
         flexBasis: '33.33%',
         flexShrink: 0,
-        color: '#52E5AA',
+        color: '#313131',
         fontFamily: 'Raleway'
     },
     details: {
         fontSize: theme.typography.pxToRem(20),
         fontFamily: 'Raleway',
-        color: '#52E5AA'
+        color: '#313131'
     }
 });
 

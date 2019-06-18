@@ -269,17 +269,17 @@ class GeneratePaper extends Component {
                         <Label text='Additional Details:'/>
                         <div className={classes.AdditionalDetailsControls}>
                             <div className={classes.AdditionalDetailsControl}>
-                                <Label text='Time (Hrs): '/>;
+                                <Label text='Time (Hrs): '/>
                                 <Input name='time' onChange={(event) => this.props.setPaperTime(event.target.value)}
-                                       value={this.props.paperTime} placeholder='Time' type='number'/>;
+                                       value={this.props.paperTime} placeholder='Time' type='number'/>
                             </div>
                             <div className={classes.AdditionalDetailsControl}>
-                                <Label text='MM: '/>;
+                                <Label text='MM: '/>
                                 <Input name='mm' onChange={(event) => this.props.setPaperMM(event.target.value)}
                                        value={this.props.paperMM} placeholder='Max Marks' type='number'/>
                             </div>
                             <div className={classes.AdditionalDetailsControl}>
-                                <Label text='Name of Examination: '/>;
+                                <Label text='Name of Examination: '/>
                                 <Input
                                     name='exam'
                                     value={this.props.paperTerm}
@@ -288,7 +288,7 @@ class GeneratePaper extends Component {
                                 />
                             </div>
                             <div className={classes.AdditionalDetailsControl}>
-                                <Label text='No. of Sections: '/>;
+                                <Label text='No. of Sections: '/>
                                 <Input
                                     name='sectionNumbers'
                                     onChange={(event) => this.props.setSectionNumbers(event.target.value)}

@@ -4,8 +4,8 @@ import Fab from '@material-ui/core/Fab';
 
 const styles = () => ({
    root: {
-       backgroundColor: '#52E5AA',
-       color: '#670A67',
+       backgroundColor: '#313131',
+       color: '#f1f1f1',
        margin : '0 30px',
        fontFamily: 'Raleway',
        fontWeight: '700',
@@ -13,6 +13,7 @@ const styles = () => ({
        marginTop: '50px',
        transition: 'transform 100ms ease-in',
        '&:hover' : {
+           color: '#313131',
            transform: 'scale(1.2)'
        }
    }

@@ -108,7 +108,7 @@ class SelectQuestions extends Component {
         //generated data acceptable by expandable components
         let expandableComponentsData;
         if (questionsArray.length) {
-             expandableComponentsData = questionsArray.map(question => {
+            expandableComponentsData = questionsArray.map(question => {
                 const questionDetails = <div className={viewQuestionClasses.QuestionDetailsDiv}>
                     <ul className={viewQuestionClasses.QuestionDetails}>
                         <li className={viewQuestionClasses.QuestionDetail}>Subject: {question.subject}</li>
@@ -181,23 +181,38 @@ class SelectQuestions extends Component {
         });
         return (
             <div className={classes.SelectQuestions}>
-                <div className={classes.SelectedSectionComponent}>
-                    <Label text='Section: '/>
-                    <ComboBox
-                        value={this.props.selectedSection}
-                        onChange={(event) => this.props.setSelectedSection(event.target.value)}
-                        data={sectionData}
-                    />
-                </div>
 
 
                 <div className={classes.QuestionSelectionArea}>
                     <div className={classes.ExpandableComponent}>
                         {questionsArray.length ?
-                            <ExpandableComponents expandableComponentsData={expandableComponentsData}/> : <Label text='No Questions found'/>}
+                            <ExpandableComponents expandableComponentsData={expandableComponentsData}/> :
+                            <div style={{
+                                width: '70%',
+                                textAlign: 'center',
+                                marginTop: '100px'
+                            }}>
+                                <span style={{
+                                    color: '#313131',
+                                    fontSize: '50px'
+                                }}>NO QUESTIONS FOUND</span>
+                            </div>}
                     </div>
                     <div className={classes.RelativeWrapper}>
                         <div className={classes.QuestionSelectionControls}>
+                            <div style={{
+                                margin: '40px 10px',
+                                display: 'flex',
+                                flexFlow: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <span className={classes.Label}>Section:</span>
+                                <ComboBox
+                                    value={this.props.selectedSection}
+                                    onChange={(event) => this.props.setSelectedSection(event.target.value)}
+                                    data={sectionData}
+                                />
+                            </div>
                             <div style={{
                                 marginBottom: '30px'
                             }}>

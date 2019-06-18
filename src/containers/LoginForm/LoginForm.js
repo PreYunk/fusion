@@ -102,7 +102,7 @@ class LoginForm extends Component {
                 marginTop: '50px',
                 fontFamily: 'Raleway',
                 fontSize: '1.5rem',
-                color: '#52E5AA',
+                color: '#313131',
                 marginLeft: '20px'
             }}>Want to create a new user?</span>
                     <MaterialFab variant='extended' onClick={this.signUpClickHandler}>Create User</MaterialFab>
@@ -114,7 +114,7 @@ class LoginForm extends Component {
                 marginTop: '50px',
                 fontFamily: 'Raleway',
                 fontSize: '1.5rem',
-                color: '#52E5AA',
+                color: '#313131',
                 marginLeft: '20px'
             }}>Want to gain access?</span>
             <MaterialFab variant='extended' onClick={this.loginClickHandler}>Login</MaterialFab>
@@ -125,20 +125,20 @@ class LoginForm extends Component {
                     <div style={{
                         height: '2.5vw',
                         width: '100%',
-                        backgroundColor: '#52E5AA',
+                        backgroundColor: '#313131',
                         borderTopLeftRadius: '7px',
                         borderTopRightRadius: '7px'
                     }}>
                         <span style={{
                             fontFamily: 'Raleway',
                             fontSize: '2rem',
-                            color: '#670A67',
+                            color: '#f1f1f1',
                             marginLeft: '20px'
                         }}>{this.props.loginMode ? 'Login' : 'SignUp'} Form</span>
                         <span style={{
                             fontFamily: 'Raleway',
                             fontSize: '1.5rem',
-                            color: '#670A67',
+                            color: '#f1f1f1',
                             marginLeft: '20px'
                         }}>[{this.props.loginMode ? 'login' : 'sign-up'}]</span>
                     </div>
