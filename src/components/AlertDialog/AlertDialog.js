@@ -1,5 +1,5 @@
 import React from 'react';
-import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -25,7 +25,7 @@ const AlertDialog = (props) => {
             <DialogTitle>
                 {props.dialogTitle}
 
-                <Fab variant='extended' classes={{root: classes.fab}} color='primary'  onClick={props.onClickButton}>{props.buttonText}</Fab>
+                <Button variant='contained' classes={{root: classes.fab}}  onClick={props.onClickButton}>{props.buttonText}</Button>
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>

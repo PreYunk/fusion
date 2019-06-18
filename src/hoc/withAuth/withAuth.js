@@ -36,7 +36,7 @@ const withAuth = (ProtectedComponent, activeUser) => {
                             <div style={{position: 'absolute', top: '40vh', left: '45vw'}}>
                                 <LoadingOverlay
                                     active={this.state.loading}
-                                    spinner={<MetroSpinner size={200} sizeUnit='px' color='#52E5AA'/>}
+                                    spinner={<MetroSpinner size={100} sizeUnit='px' color='#52E5AA'/>}
                                     text='Verifying'
                                 />
                             </div>}

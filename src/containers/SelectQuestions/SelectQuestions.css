@@ -23,6 +23,24 @@
 }
 
 .QuestionSelectionControls {
-    width: 25vw;
-    margin-right: 50px;
+    position: fixed;
+    right: 1px;
+    width: 14vw;
+    margin-right: 20px;
+}
+
+.RelativeWrapper {
+    position: relative;
+}
+
+.Label {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #52E5AA;
+    margin-bottom: 100px;
+}
+
+#MarksLeft {
+    margin-left: 100px;
 }

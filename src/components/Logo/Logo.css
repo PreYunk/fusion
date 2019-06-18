@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:400');
 .LogoHome {
-    transform: scale(0.35);
+    font-size: 17rem;
     width: auto;
+    margin: 100px;
     font-family: 'Oswald';
 }

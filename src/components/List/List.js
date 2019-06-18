@@ -13,8 +13,17 @@ const styles = (theme) => ({
         color: '#52E5AA',
         fontSize: theme.typography.pxToRem(25)
     },
-    listRoot: {
-        maxHeight: '500px',
+    listRoot450: {
+        maxHeight: '450px',
+        width: 'auto',
+        overflow: 'auto',
+        backgroundColor: '#52E5AA',
+        borderRadius: '6px',
+        color: '#670A67',
+        marginTop: '20px'
+    },
+    listRoot100: {
+        maxHeight: '150px',
         width: 'auto',
         overflow: 'auto',
         backgroundColor: '#52E5AA',
@@ -50,7 +59,7 @@ const list = (props) => {
         <div className={classes.container}>
             <span className={classes.headerStyle}>{props.header}</span>
             <List component='ul'
-                  classes={{root: classes.listRoot}}
+                  classes={{root: props.smallList?classes.listRoot100:classes.listRoot450}}
             >
                 {listItems}
             </List>

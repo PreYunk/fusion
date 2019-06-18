@@ -15,11 +15,19 @@ import AlertDialog from '../../components/AlertDialog/AlertDialog';
 
 class SelectQuestions extends Component {
 
+    componentWillMount() {
+        this.setState({
+            marksLeft: this.props.paperMM
+        })
+    }
+
+
     state = {
         typeSelectedIndex: -1,
         chapterSelectedIndex: -1,
         previewDialogOpen: false,
-        previewEditorState: EditorState.createEmpty()
+        previewEditorState: EditorState.createEmpty(),
+        marksLeft: 0
     };
 
     resetFilterButtonClickHandler = () => {
@@ -63,6 +71,9 @@ class SelectQuestions extends Component {
     };
     addButtonClickHandler = (question) => {
         const addedQuestion = {type: question.type, section: this.props.selectedSection, question: question};
+        this.setState(prevState => ({
+            marksLeft: prevState.marksLeft - question.marks
+        }));
         this.removeQuestionFromFetchedQuestions(question);
         this.props.addToSelectedQuestions(addedQuestion);
     };
@@ -178,22 +189,35 @@ class SelectQuestions extends Component {
                         data={sectionData}
                     />
                 </div>
+
+
                 <div className={classes.QuestionSelectionArea}>
                     <div className={classes.ExpandableComponent}>
                         {questionsArray.length ?
                             <ExpandableComponents expandableComponentsData={expandableComponentsData}/> : <Label text='No Questions found'/>}
                     </div>
-                    <div className={classes.QuestionSelectionControls}>
-                        <List
-                            listData={typeListData}
-                            header='Types:'
-                        />
-                        <List
-                            listData={chaptersListData}
-                            header='Chapters:'
-                        />
-                        <MaterialFab onClick={this.resetFilterButtonClickHandler}>Reset Filter</MaterialFab>
-                        <MaterialFab onClick={this.generateButtonClickHandler}>Generate</MaterialFab>
+                    <div className={classes.RelativeWrapper}>
+                        <div className={classes.QuestionSelectionControls}>
+                            <div style={{
+                                marginBottom: '30px'
+                            }}>
+                                <span className={classes.Label}>MARKS LEFT:</span>
+                                <span className={classes.Label} id={classes.MarksLeft}>{this.state.marksLeft}</span>
+                            </div>
+
+                            <List
+                                smallList
+                                listData={typeListData}
+                                header='Types:'
+                            />
+                            <List
+                                smallList
+                                listData={chaptersListData}
+                                header='Chapters:'
+                            />
+                            <MaterialFab onClick={this.resetFilterButtonClickHandler}>Reset Filter</MaterialFab>
+                            <MaterialFab onClick={this.generateButtonClickHandler}>Generate</MaterialFab>
+                        </div>
                     </div>
                 </div>
                 <AlertDialog
@@ -227,7 +251,8 @@ const mapStateToProps = state => {
         fetchedQuestions: state.selectQuestionsReducer.fetchedQuestions,
         selectedChapter: state.selectQuestionsReducer.selectedChapter,
         selectedType: state.selectQuestionsReducer.selectedType,
-        selectedQuestions: state.generatePaperReducer.selectedQuestions
+        selectedQuestions: state.generatePaperReducer.selectedQuestions,
+        paperMM: state.generatePaperReducer.paperMM
     }
 };
 
