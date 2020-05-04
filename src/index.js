@@ -33,7 +33,7 @@ const app = (
     </BrowserRouter>
   </Provider>
 );
-
+// <Editor2 width="100%" height="500px" />
 ReactDOM.render(
   <Editor2 width="100%" height="500px" />,
   document.getElementById("root")

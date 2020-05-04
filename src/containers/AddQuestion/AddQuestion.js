@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Editor } from "react-draft-wysiwyg";
+import { Editor } from "draft-js";
 import { convertToRaw, RichUtils } from "draft-js";
 import "../../assets/css/react-draft-wysiwyg.css";
 import axios from "axios";
@@ -379,9 +379,9 @@ class AddQuestion extends Component {
         <Editor
           handleReturn={this.handleReturn}
           editorState={this.props.editorState}
-          wrapperClassName={classes.EditorWrapper}
-          editorClassName={classes.Editor}
-          onEditorStateChange={(editorState) =>
+          // wrapperClassName={classes.EditorWrapper}
+          // editorClassName={classes.Editor}
+          onChange={(editorState) =>
             this.props.onEditorStateChange(editorState)
           }
         />
