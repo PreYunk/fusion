@@ -13,6 +13,7 @@ import selectQuestionsReducer from "./store/reducers/selectQuestions";
 import loginReducer from "./store/reducers/login";
 import * as serviceWorker from "./serviceWorker";
 import axios from "axios";
+import Editor2 from "./components/Editor2/Editor2";
 
 // axios.defaults.baseURL = 'http://localhost:3001/api';
 axios.defaults.baseURL = "https://polar-sea-14304.herokuapp.com/api";
@@ -33,7 +34,10 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById("root"));
+ReactDOM.render(
+  <Editor2 width="100%" height="500px" />,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
