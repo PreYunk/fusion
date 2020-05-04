@@ -1,8 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald|Raleway&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Oswald|Raleway&display=swap");
 
 @font-face {
   font-family: ytsans;
   src: url("./assets/ytsans.woff2");
+}
+@font-face {
+  font-family: "Lemon";
+  font-style: normal;
+  src: url("./assets/lemon_milk/LEMONMILK-Regular.otf");
+}
+
+@font-face {
+  font-family: "Tommy";
+  font-style: normal;
+  src: url("./assets/made_tommy/MADE TOMMY Regular_PERSONAL USE.otf");
 }
 
 body {
@@ -12,6 +23,6 @@ body {
   font-family: "Raleway";
 }
 .error {
-  color: #52E5AA;
+  color: #52e5aa;
   font-size: 50px;
 }

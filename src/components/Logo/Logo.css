@@ -1,8 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald:400');
+@import url("https://fonts.googleapis.com/css?family=Oswald:400");
 .LogoHome {
-    color: #313131;
-    font-size: 17rem;
+  color: #313131;
+  font-size: 17rem;
+  width: auto;
+  margin: 100px;
+  font-family: "Oswald";
+}
+
+@media (max-width: 700px) {
+  .LogoHome {
+    font-family: "Lemon";
+    font-size: 2rem;
     width: auto;
-    margin: 100px;
-    font-family: 'Oswald';
+    margin: 0;
+  }
 }

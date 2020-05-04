@@ -1,6 +1,7 @@
 .FormComponent {
-    display: flex;
-    flex-flow: row;
-    width: auto;
-    margin: 50px 100px;
+  display: flex;
+  flex-flow: row;
+  width: auto;
+  align-items: center;
+  margin: 50px 100px;
 }

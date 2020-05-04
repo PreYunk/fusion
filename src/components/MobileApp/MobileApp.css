@@ -1,0 +1,17 @@
+.MobileLayout {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+.Header {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+.bdy {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  justify-content: center;
+}

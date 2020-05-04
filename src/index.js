@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import MobileApp from "./components/MobileApp/MobileApp";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
@@ -24,18 +25,13 @@ const reducer = combineReducers({
 });
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
-const app =
-  window.innerWidth >= 700 ? (
-    <Provider store={store}>
-      <BrowserRouter basename="/fusion">
-        <App />
-      </BrowserRouter>
-    </Provider>
-  ) : (
-    <h1 style={{ color: "#52E5AA" }}>
-      THIS APP IS NOT SUPPORTED FOR MOBILE DEVICES YET{" "}
-    </h1>
-  );
+const app = (
+  <Provider store={store}>
+    <BrowserRouter basename="/fusion">
+      {window.innerWidth >= 700 ? <App /> : <App mobile />}
+    </BrowserRouter>
+  </Provider>
+);
 
 ReactDOM.render(app, document.getElementById("root"));
 

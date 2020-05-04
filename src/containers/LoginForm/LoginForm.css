@@ -1,31 +1,50 @@
 .LoginForm {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .FormComponents {
-    display: flex;
-    flex-flow: column;
-    border: 2px solid #313131;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    width: 35vw;
-    margin-top: 10vw;
-    margin-bottom: 10px;
+  display: flex;
+  flex-flow: column;
+  border: 2px solid #313131;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  width: 35vw;
+  margin-top: 10vw;
+  margin-bottom: 10px;
 }
 
 .FormComponent {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 10px;
+  align-items: center;
 }
 .SignUpPrompt {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: row;
+  align-content: center;
+  justify-content: center;
+}
+
+#Prompt {
+  display: flex;
+  flex-flow: column;
+}
+@media (max-width: 700px) {
+  .FormComponents {
     display: flex;
-    flex-flow: row;
-    align-content: center;
+    flex-flow: column;
+    border: 2px solid #313131;
+    width: 80%;
+  }
+  .SignUpPrompt {
+    flex-flow: column;
+  }
 }

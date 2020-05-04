@@ -1,25 +1,37 @@
 .Button {
-    margin: auto;
-    padding: .3vw 1.5vw;
-    background: none;
-    cursor: pointer;
-    text-decoration: none;
-    border:solid 5px #313131;
-    -moz-border-radius: 75px;
-    -webkit-border-radius: 75px;
-    border-radius: 75px;
-    color: #313131;
-    font-family: 'Raleway';
-    font-size: 2vw;
-    transition: transform 100ms ease-out;
+  margin: auto;
+  padding: 0.3vw 1.5vw;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  border: solid 5px #313131;
+  -moz-border-radius: 75px;
+  -webkit-border-radius: 75px;
+  border-radius: 75px;
+  color: #313131;
+  font-family: "Raleway";
+  font-size: 2vw;
+  transition: transform 100ms ease-out;
 }
 
 .Button:hover {
-    background-color: #313131;
-    color: #f1f1f1;
-    transform: scale(1.2);
+  background-color: #313131;
+  color: #f1f1f1;
+  transform: scale(1.2);
 }
 .Button:active {
-    transform: scale(0.9);
+  transform: scale(0.9);
 }
 
+@media (max-width: 700px) {
+  .Button {
+    margin: auto;
+    padding: 10px;
+    border: solid 1px #313131;
+    border-radius: 0px;
+    color: #313131;
+    font-family: "Lemon";
+    font-size: 30;
+    transition: transform 100ms ease-out;
+  }
+}
