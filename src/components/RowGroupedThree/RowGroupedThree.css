@@ -1,6 +1,16 @@
 .RowGroupedThree {
-    display: flex;
-    margin: 50px 100px;
-    justify-content: space-between;
-    max-width: 500px;
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .RowGroupedThree {
+    flex-flow: column;
+  }
+  .wrapper {
+    width: 50%;
+  }
 }
