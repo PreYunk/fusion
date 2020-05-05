@@ -18,8 +18,7 @@
   flex-flow: row;
   width: 500px;
   align-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
 .EditorWrapper {

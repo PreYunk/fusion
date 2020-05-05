@@ -10,6 +10,7 @@ const styles = {
     width: "150px",
     borderRadius: "50px",
     textAlign: "center",
+    padding: "10px",
   },
   mobile: {
     border: "1px solid #313131",

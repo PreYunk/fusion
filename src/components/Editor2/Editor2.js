@@ -2,29 +2,19 @@ import React, { useState } from "react";
 import classes from "./Editor2.css";
 
 const Editor2 = (props) => {
-  const [editorState, setEditorState] = useState("");
+  // const [editorState, setEditorState] = useState("");
 
   return (
-    <>
+    <div className={classes.Wrapper}>
       <textarea
+        readOnly={props.readOnly}
         className={classes.Editor}
         style={{ width: props.width, height: props.height, resize: "none" }}
-        onChange={(event) => setEditorState(event.target.value)}
+        onChange={props.onChange}
         type="text/html"
-        value={editorState}
+        value={props.editorState}
       />
-      <button
-        onClick={() => {
-          console.log(editorStateToRenderState(editorState));
-          console.log(renderStateToHTML(editorStateToRenderState(editorState)));
-          console.log(
-            renderStateToEditorState(editorStateToRenderState(editorState))
-          );
-        }}
-      >
-        Click
-      </button>
-    </>
+    </div>
   );
 };
 export default Editor2;

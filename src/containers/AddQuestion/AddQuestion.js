@@ -15,6 +15,9 @@ import FilledButton from "../../components/FilledButton/FilledButton";
 import AlertDialogBox from "../../components/AlertDialog/AlertDialog";
 import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import AddTypeDialog from "../../components/Specifics/AddTypeDialog/AddTypeDialog";
+import Editor2, {
+  editorStateToRenderState,
+} from "../../components/Editor2/Editor2";
 import Button from "../../components/Button/Button";
 
 import classes from "./AddQuestion.css";
@@ -85,7 +88,7 @@ class AddQuestion extends Component {
 
   submitButtonClicked = () => {
     const questionRawData = JSON.stringify(
-      convertToRaw(this.props.editorState.getCurrentContent())
+      editorStateToRenderState(this.props.editorState)
     );
     const dataToBeExported = {
       id: Math.floor(Math.random() * 1000),
@@ -376,13 +379,15 @@ class AddQuestion extends Component {
             </>
           </div>
         ) : null}
-        <Editor
+        <Editor2
           handleReturn={this.handleReturn}
           editorState={this.props.editorState}
+          width="90%"
+          height="200px"
           // wrapperClassName={classes.EditorWrapper}
           // editorClassName={classes.Editor}
-          onChange={(editorState) =>
-            this.props.onEditorStateChange(editorState)
+          onChange={(event) =>
+            this.props.onEditorStateChange(event.target.value)
           }
         />
         {/*could be used to render mathematical expressions in future*/}

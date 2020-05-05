@@ -13,6 +13,10 @@ import AlertDialog from "../../components/AlertDialog/AlertDialog";
 import { MetroSpinner } from "react-spinners-kit";
 import LoadingOverlay from "react-loading-overlay";
 import { Editor } from "react-draft-wysiwyg";
+import Editor2, {
+  renderStateToEditorState,
+} from "../../components/Editor2/Editor2";
+
 import axios from "axios";
 import * as actions from "../../store/actions/index";
 
@@ -29,7 +33,7 @@ class ViewQuestion extends Component {
     classesFetched: [],
     expandableComponentsData: [],
     previewOpen: false,
-    previewEditorState: EditorState.createEmpty(),
+    previewEditorState: "",
     loading: false,
     updateQuestionAccess: false,
     updateQuestionDeniedAlert: false,
@@ -46,7 +50,7 @@ class ViewQuestion extends Component {
     this.setState({ previewEditorState: editorState });
   };
   previewButtonClickHandler = (editorState) => {
-    const prevEditorState = EditorState.createWithContent(editorState);
+    const prevEditorState = editorState;
     this.setState({ previewEditorState: prevEditorState, previewOpen: true });
   };
   deleteButtonClickHandler = (questionId, user) => {
@@ -93,10 +97,10 @@ class ViewQuestion extends Component {
     this.props.setSubject(questionEditData.subject);
     this.props.setType(questionEditData.type);
     this.props.setMarks(questionEditData.marks);
-    const contentEditorState = convertFromRaw(
+    const contentEditorState = renderStateToEditorState(
       JSON.parse(questionEditData.questionData)
     );
-    const editorState = EditorState.createWithContent(contentEditorState);
+    const editorState = contentEditorState;
     this.props.setEditorState(editorState);
     this.props.setQuestionEditStatus(true, questionEditData._id);
     this.props.history.push("/start/add");
@@ -144,7 +148,9 @@ class ViewQuestion extends Component {
               </ul>
             </div>
           );
-          const editorState = convertFromRaw(JSON.parse(question.questionData));
+          const editorState = renderStateToEditorState(
+            JSON.parse(question.questionData)
+          );
           const expandableActions = (
             <div className={classes.ExpandableActions}>
               <MaterialFab
@@ -169,7 +175,7 @@ class ViewQuestion extends Component {
               </MaterialFab>
             </div>
           );
-          let rawQue = editorState.getPlainText();
+          let rawQue = editorState;
           if (rawQue.length >= 50) rawQue = rawQue.slice(0, 51);
           const expSummaryComponent = (
             <div className={classes.SummaryComponents}>
@@ -310,12 +316,12 @@ class ViewQuestion extends Component {
           buttonText="Close"
           dialogContentText=" "
           dialogContentComponent={
-            <Editor
+            <Editor2
               readOnly
               toolbarHidden
               editorState={this.state.previewEditorState}
-              wrapperClassName="demo-wrapper"
-              editorClassName={classes.PreviewEditor}
+              width="100%"
+              height="80vh"
               onEditorStateChanged={(editorState) =>
                 this.onEditorStateChangeHandler(editorState)
               }

@@ -3,3 +3,7 @@
   box-sizing: border-box;
   padding: 20px;
 }
+.Wrapper {
+  width: 100%;
+  text-align: center;
+}
