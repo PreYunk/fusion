@@ -1,0 +1,16 @@
+.ToolbarButtonOn {
+  color: white;
+  background-color: black;
+}
+
+.ToolbarButtonOff {
+  color: black;
+  background-color: white;
+}
+.ToolbarButton {
+  border: 1px solid transparent;
+  padding: 5px;
+}
+.ToolbarButton:hover {
+  border: 1px solid black;
+}

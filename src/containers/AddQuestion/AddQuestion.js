@@ -87,6 +87,7 @@ class AddQuestion extends Component {
   };
 
   submitButtonClicked = () => {
+    console.log(editorStateToRenderState(this.props.editorState));
     const questionRawData = JSON.stringify(
       editorStateToRenderState(this.props.editorState)
     );
@@ -380,14 +381,15 @@ class AddQuestion extends Component {
           </div>
         ) : null}
         <Editor2
+          editStatus={this.props.questionEditStatus}
           handleReturn={this.handleReturn}
           editorState={this.props.editorState}
           width="90%"
           height="200px"
           // wrapperClassName={classes.EditorWrapper}
           // editorClassName={classes.Editor}
-          onChange={(event) =>
-            this.props.onEditorStateChange(event.target.value)
+          onChange={(editorState) =>
+            this.props.onEditorStateChange(editorState)
           }
         />
         {/*could be used to render mathematical expressions in future*/}

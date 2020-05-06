@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom/server";
+import { Context, Node } from "react-mathjax2";
 import "./index.css";
 import App from "./App";
 import MobileApp from "./components/MobileApp/MobileApp";
@@ -13,6 +15,7 @@ import selectQuestionsReducer from "./store/reducers/selectQuestions";
 import loginReducer from "./store/reducers/login";
 import * as serviceWorker from "./serviceWorker";
 import axios from "axios";
+
 import Editor2 from "./components/Editor2/Editor2";
 
 // axios.defaults.baseURL = "http://localhost:3001/api";
@@ -32,6 +35,11 @@ const app = (
       {window.innerWidth >= 700 ? <App /> : <App mobile />}
     </HashRouter>
   </Provider>
+);
+const math = (
+  <Context input="tex">
+    <Node>Hello Word</Node>
+  </Context>
 );
 // <Editor2 width="100%" height="500px" />
 ReactDOM.render(app, document.getElementById("root"));

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { Context, Node } from "react-mathjax2";
 import ExpandableComponents from "../../components/ExpandableComponents/ExpandableComponents";
 import classes from "./ViewQuestion.css";
 import FormDialog from "../../components/FormDialog/FormDialog";
@@ -16,6 +17,7 @@ import { Editor } from "react-draft-wysiwyg";
 import Editor2, {
   renderStateToEditorState,
 } from "../../components/Editor2/Editor2";
+import { parseQuestion } from "../GeneratedPage/GeneratedPage";
 
 import axios from "axios";
 import * as actions from "../../store/actions/index";
@@ -39,12 +41,12 @@ class ViewQuestion extends Component {
     updateQuestionDeniedAlert: false,
   };
 
-  componentDidMount() {
-    this.setState({
-      updateQuestionAccess: this.props.activeUser.permissions.updateQuestion,
-    });
-    console.log(this.props.activeUser.permissions.updateQuestion);
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     updateQuestionAccess: this.props.activeUser.permissions.updateQuestion,
+  //   });
+  //   console.log(this.props.activeUser.permissions.updateQuestion);
+  // }
 
   onEditorStateChangeHandler = (editorState) => {
     this.setState({ previewEditorState: editorState });
@@ -97,10 +99,9 @@ class ViewQuestion extends Component {
     this.props.setSubject(questionEditData.subject);
     this.props.setType(questionEditData.type);
     this.props.setMarks(questionEditData.marks);
-    const contentEditorState = renderStateToEditorState(
-      JSON.parse(questionEditData.questionData)
-    );
-    const editorState = contentEditorState;
+    const contentEditorState = JSON.parse(questionEditData.questionData);
+
+    const editorState = contentEditorState.raw;
     this.props.setEditorState(editorState);
     this.props.setQuestionEditStatus(true, questionEditData._id);
     this.props.history.push("/start/add");
@@ -148,13 +149,14 @@ class ViewQuestion extends Component {
               </ul>
             </div>
           );
-          const editorState = renderStateToEditorState(
-            JSON.parse(question.questionData)
-          );
+
+          const renderState = JSON.parse(question.questionData);
+          const editorState = renderStateToEditorState(renderState);
+          console.log(editorState);
           const expandableActions = (
             <div className={classes.ExpandableActions}>
               <MaterialFab
-                onClick={() => this.previewButtonClickHandler(editorState)}
+                onClick={() => this.previewButtonClickHandler(renderState)}
                 mobile={this.props.mobile}
               >
                 Preview
@@ -316,16 +318,23 @@ class ViewQuestion extends Component {
           buttonText="Close"
           dialogContentText=" "
           dialogContentComponent={
-            <Editor2
-              readOnly
-              toolbarHidden
-              editorState={this.state.previewEditorState}
-              width="100%"
-              height="80vh"
-              onEditorStateChanged={(editorState) =>
-                this.onEditorStateChangeHandler(editorState)
-              }
-            />
+            // <Editor2
+            //   readOnly
+            //   toolbarHidden
+            //   editorState={this.state.previewEditorState}
+            //   width="100%"
+            //   height="80vh"
+            //   onChange={(editorState) =>
+            //     this.onEditorStateChangeHandler(editorState)
+            //   }
+            // />
+            <Context input="tex">
+              <div style={{ width: "100%", height: "80vh" }}>
+                {this.state.previewEditorState
+                  ? parseQuestion(this.state.previewEditorState)
+                  : null}
+              </div>
+            </Context>
           }
         />
         <FormDialog

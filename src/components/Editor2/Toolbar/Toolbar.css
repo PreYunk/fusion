@@ -1,0 +1,16 @@
+.ToolbarWrapper {
+  width: 90%;
+  height: 50px;
+  background-color: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.Toolbar {
+  display: flex;
+  flex-flow: row;
+  font-size: 1.2rem;
+  height: 100%;
+  align-items: center;
+}

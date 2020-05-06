@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import classes from "./GeneratedPage.css";
+import ReactDOMServer from "react-dom/server";
 import Header from "../../components/Specifics/GeneratePageComponents/Header/Header";
 import PaperDetails from "../../components/Specifics/GeneratePageComponents/PaperDetails/PaperDetails";
 import { connect } from "react-redux";
 import { renderStateToHTML } from "../../components/Editor2/Editor2";
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
+import { Context, Node } from "react-mathjax2";
 
 class GeneratedPage extends Component {
   componentWillUnmount() {
@@ -23,19 +25,24 @@ class GeneratedPage extends Component {
       for (let typeEntries of Object.entries(sectionEntries[1])) {
         console.log(typeEntries);
         const questions = typeEntries[1].map((question, index) => {
-          let questionData = renderStateToHTML(
-            JSON.parse(question.questionData)
-          );
+          let questionData = JSON.parse(question.questionData);
+          const questionLines = parseQuestion(questionData);
           return (
-            <div className={classes.RowFlex}>
-              <li className={classes.Question}>
-                <div
-                  className={classes.QuestionData}
-                  dangerouslySetInnerHTML={{ __html: questionData }}
-                ></div>
-              </li>
-              <span>&nbsp;&nbsp;&nbsp;({question.marks})</span>
-            </div>
+            <Context input="tex">
+              <div className={classes.RowFlex}>
+                <li className={classes.Question}>
+                  <div
+                    className={classes.QuestionData}
+                    // dangerouslySetInnerHTML={{
+                    //   __html: questionData,
+                    // }}
+                  >
+                    {questionLines}
+                  </div>
+                </li>
+                <span>&nbsp;&nbsp;&nbsp;({question.marks})</span>
+              </div>
+            </Context>
           );
         });
         types.push(
@@ -72,6 +79,20 @@ class GeneratedPage extends Component {
     );
   }
 }
+
+export const parseQuestion = (questionData) => {
+  const questionLines = questionData.lines.map((line) => {
+    const lineSegs = [];
+    for (const [key, segment] of Object.entries(line)) {
+      if (segment.type === "text") lineSegs.push(<span>{segment.text}</span>);
+      if (segment.type === "bold") lineSegs.push(<b>{segment.text}</b>);
+      if (segment.type === "math")
+        lineSegs.push(<Node inline>{segment.text}</Node>);
+    }
+    return <p>{lineSegs}</p>;
+  });
+  return questionLines;
+};
 
 const mapStateToProps = (state) => {
   return {
