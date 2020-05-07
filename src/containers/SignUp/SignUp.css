@@ -1,0 +1,21 @@
+.SignUpWrapper {
+  margin-top: 50px;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  align-items: center;
+  height: 60vh;
+  justify-content: space-evenly;
+}
+
+.SignUpComponents {
+  display: flex;
+  flex-flow: column;
+  border: 1px solid black;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.SignUpComponents > span {
+  text-align: center;
+}

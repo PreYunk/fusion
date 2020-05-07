@@ -4,8 +4,26 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import * as actions from "../../store/actions/index";
+import Switch from "../../components/Switch/Switch";
+import axios from "axios";
 
 class StartPage extends Component {
+  state = { enableULogin: false, changingControl: false };
+
+  constructor(props) {
+    super(props);
+    this.setState({ changingControl: true });
+    axios
+      .get("/getControls?name=developer")
+      .then((res) =>
+        this.setState({
+          enableULogin: res.data.data.controls.enableULogin,
+          changingControl: false,
+        })
+      )
+      .catch((err) => console.log(err));
+  }
+
   logoutClickHandler = () => {
     localStorage.removeItem("token");
 
@@ -27,11 +45,23 @@ class StartPage extends Component {
     this.props.setLoginMode(false);
     this.props.history.push("/login");
   };
+  loginSwitchChangeHandler = (event) => {
+    console.log(event.target.checked);
+    this.setState({ enableULogin: event.target.checked });
+    this.setState({ changingControl: true });
+    axios
+      .put("/updateControls", {
+        name: "developer",
+        controls: {
+          enableULogin: event.target.checked,
+        },
+      })
+      .then((res) => this.setState({ changingControl: false }))
+      .catch((err) => console.log(err));
+  };
 
   render() {
     const activeUser = this.props.activeUser;
-    console.log(activeUser);
-
     const classNames = [];
     classNames.push(classes.CenteredDiv);
     classNames.push(classes.Options);
@@ -50,7 +80,18 @@ class StartPage extends Component {
                 Create User
               </MaterialFab>
             ) : null}
-            {}
+            {activeUser.permissions.accessBeta ? (
+              this.state.changingControl ? (
+                <span style={{ color: "white" }}>Please Wait..</span>
+              ) : (
+                <Switch
+                  white
+                  text="Enable Universal Login"
+                  checked={this.state.enableULogin}
+                  onChange={this.loginSwitchChangeHandler}
+                />
+              )
+            ) : null}
 
             <MaterialFab variant="extended" onClick={this.logoutClickHandler}>
               Log out

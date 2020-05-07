@@ -8,6 +8,7 @@ import ViewQuestion from "./containers/ViewQuestion/ViewQuestion";
 import GeneratePaper from "./containers/GeneratePaper/GeneratePaper";
 import SelectQuestions from "./containers/SelectQuestions/SelectQuestions";
 import GeneratedPage from "./containers/GeneratedPage/GeneratedPage";
+import SignUp from "./containers/SignUp/SignUp";
 import LoginForm from "./containers/LoginForm/LoginForm";
 import withAuth from "./hoc/withAuth/withAuth";
 import jwt from "jsonwebtoken";
@@ -89,6 +90,10 @@ class App extends Component {
         <Route
           path="/login"
           component={() => <LoginForm mobile={this.props.mobile} />}
+        />
+        <Route
+          path="/signUp"
+          component={() => <SignUp mobile={this.props.mobile} />}
         />
         <Route
           path="/"
