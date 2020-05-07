@@ -15,7 +15,7 @@ export default class SignUp extends Component {
     password: "",
     confPassword: "",
     signedUp: true,
-    message: "",
+    message: "Hold On...",
     toDisplay: false,
   };
   constructor(props) {

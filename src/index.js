@@ -18,8 +18,8 @@ import axios from "axios";
 
 import Editor2 from "./components/Editor2/Editor2";
 
-axios.defaults.baseURL = "http://localhost:3001/api";
-// axios.defaults.baseURL = "https://polar-sea-14304.herokuapp.com/api";
+// axios.defaults.baseURL = "http://localhost:3001/api";
+axios.defaults.baseURL = "https://polar-sea-14304.herokuapp.com/api";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducer = combineReducers({
   addQuestionReducer,
