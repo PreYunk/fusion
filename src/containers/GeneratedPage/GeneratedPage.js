@@ -89,7 +89,7 @@ export const parseQuestion = (questionData) => {
       if (segment.type === "math")
         lineSegs.push(<Node inline>{segment.text}</Node>);
     }
-    return <p>{lineSegs}</p>;
+    return <p contentEditable>{lineSegs}</p>;
   });
   return questionLines;
 };

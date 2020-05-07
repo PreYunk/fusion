@@ -131,7 +131,7 @@ class AddQuestion extends Component {
               alertDialogOpen: true,
               alertDialogMsg: "Question Added Successfully",
             });
-            this.props.resetState();
+            this.props.onEditorStateChange("");
             console.log(result);
             this.setState({ loading: false });
           })
