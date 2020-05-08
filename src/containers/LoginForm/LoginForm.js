@@ -30,7 +30,7 @@ class LoginForm extends Component {
   };
   authenticateClickHandler = () => {
     const loginData = {
-      username: this.props.username,
+      username: this.props.username.trim(),
       password: this.props.password,
       permissions: this.state.permissions,
     };

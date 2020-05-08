@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { convertFromRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
+import { Context } from "react-mathjax2";
+import { parseQuestion } from "../GeneratedPage/GeneratedPage";
 import Editor2, {
   renderStateToEditorState,
+  editorStateToRenderState,
 } from "../../components/Editor2/Editor2";
 
 import classes from "./SelectQuestions.css";
@@ -28,7 +31,7 @@ class SelectQuestions extends Component {
     typeSelectedIndex: -1,
     chapterSelectedIndex: -1,
     previewDialogOpen: false,
-    previewEditorState: "",
+    previewEditorState: undefined,
     marksLeft: 0,
   };
 
@@ -71,7 +74,8 @@ class SelectQuestions extends Component {
   };
 
   previewButtonClickHandler = (editorState) => {
-    const prevEditorState = editorState;
+    const prevEditorState = editorStateToRenderState(editorState);
+    console.log(prevEditorState);
     this.setState({
       previewEditorState: prevEditorState,
       previewDialogOpen: true,
@@ -306,14 +310,13 @@ class SelectQuestions extends Component {
           buttonText="Close"
           dialogContentText=" "
           dialogContentComponent={
-            <Editor2
-              readOnly
-              toolbarHidden
-              editorState={this.state.previewEditorState}
-              onEditorStateChanged={(editorState) =>
-                this.editorStateChangeHandler(editorState)
-              }
-            />
+            <Context input="tex">
+              <div style={{ width: "100%", height: "80vh" }}>
+                {this.state.previewEditorState
+                  ? parseQuestion(this.state.previewEditorState)
+                  : null}
+              </div>
+            </Context>
           }
         />
       </div>

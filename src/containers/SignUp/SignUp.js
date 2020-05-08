@@ -61,10 +61,17 @@ export default class SignUp extends Component {
       });
       return;
     }
+    if (/[A-Z]/.test(this.state.username)) {
+      this.setState({
+        signedUp: true,
+        message: "Username must be in small letters",
+      });
+      return;
+    }
     this.setState({ signedUp: true, message: "Please Wait" });
     axios
       .post("/createUser", {
-        username: this.state.username,
+        username: this.state.username.trim(),
         password: this.state.password,
         permissions: {
           createUser: false,

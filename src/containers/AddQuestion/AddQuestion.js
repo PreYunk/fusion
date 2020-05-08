@@ -58,6 +58,9 @@ class AddQuestion extends Component {
     this.setState({ addTypeDialogOpen: false });
   };
   onClickAddTypeSubmitHandler = () => {
+    if (!this.props.addType) {
+      alert("Fields can't be empty");
+    }
     if (this.props.activeUser.permissions.addQuestion) {
       axios
         .post("/addType", { name: this.props.addType })
@@ -152,8 +155,7 @@ class AddQuestion extends Component {
   };
 
   alertDialogBoxCloseHandler = () => {
-    this.setState({ alertDialogOpen: false });
-    this.props.history.goBack();
+    this.setState({ alertDialogOpen: false, configOpened: true });
   };
 
   onTypeChangeHandler = (event) => {
@@ -185,18 +187,21 @@ class AddQuestion extends Component {
       { value: 10, label: "10" },
     ];
     const classData = [
-      { value: 1, label: "I" },
-      { value: 2, label: "II" },
-      { value: 3, label: "III" },
-      { value: 4, label: "IV" },
-      { value: 5, label: "V" },
-      { value: 6, label: "VI" },
-      { value: 7, label: "VII" },
-      { value: 8, label: "VIII" },
-      { value: 9, label: "IX" },
-      { value: 10, label: "X" },
-      { value: 11, label: "XI" },
-      { value: 12, label: "XII" },
+      { value: 1, label: "Nursery" },
+      { value: 2, label: "LKG" },
+      { value: 3, label: "UKG" },
+      { value: 4, label: "I" },
+      { value: 5, label: "II" },
+      { value: 6, label: "III" },
+      { value: 7, label: "IV" },
+      { value: 8, label: "V" },
+      { value: 9, label: "VI" },
+      { value: 10, label: "VII" },
+      { value: 11, label: "VIII" },
+      { value: 12, label: "IX" },
+      { value: 13, label: "X" },
+      { value: 14, label: "XI" },
+      { value: 15, label: "XII" },
     ];
     const subjectData = [
       { value: "English I", label: "English I" },
@@ -223,14 +228,13 @@ class AddQuestion extends Component {
     const marksLabel = <Label text="Marks:" />;
     const marksComboBox = (
       <ComboBox
+        inputLabel="Marks"
         value={this.props.marks}
         data={marksData}
         onChange={(event) => this.props.onMarksChange(event.target.value)}
         mobile={this.props.mobile}
       />
     );
-    const idLabel = <Label text="Question id:" />;
-    const idValue = <Label text="2" />;
     const chapterNameLabel = <Label text="Chapter Number:" />;
     const chapterNameInput = (
       <Input
@@ -322,9 +326,11 @@ class AddQuestion extends Component {
                 labelComponent={typeLabel}
                 inputComponent={typeComboBox}
               />
-              <MaterialFab onClick={this.onClickAddTypeHandler}>
-                Add
-              </MaterialFab>
+              {this.props.activeUser.permissions.updateQuestion ? (
+                <MaterialFab onClick={this.onClickAddTypeHandler}>
+                  Add
+                </MaterialFab>
+              ) : null}
             </div>
             <AddTypeDialog
               isOpen={this.state.addTypeDialogOpen}
@@ -363,10 +369,12 @@ class AddQuestion extends Component {
                   labelComponent={typeLabel}
                   inputComponent={typeComboBox}
                 />
-                <Button
-                  text="Add Type"
-                  onButtonClicked={this.onClickAddTypeHandler}
-                />
+                {this.props.activeUser.permissions.couldUpdateQuestion ? (
+                  <Button
+                    text="Add Type"
+                    onButtonClicked={this.onClickAddTypeHandler}
+                  />
+                ) : null}
               </div>
               <AddTypeDialog
                 isOpen={this.state.addTypeDialogOpen}

@@ -41,6 +41,10 @@ class ViewQuestion extends Component {
     updateQuestionDeniedAlert: false,
   };
 
+  componentWillMount() {
+    this.formAcceptHandler();
+  }
+
   // componentDidMount() {
   //   this.setState({
   //     updateQuestionAccess: this.props.activeUser.permissions.updateQuestion,
