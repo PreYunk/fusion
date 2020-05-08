@@ -64,7 +64,6 @@ class AddQuestion extends Component {
         .then((result) => {
           this.setState({ addTypeDialogOpen: false });
           this.props.getTypes();
-          console.log(result);
         })
         .catch((err) => console.log(err));
     } else {
@@ -77,7 +76,6 @@ class AddQuestion extends Component {
   };
 
   chapterNameChangedHandler = (event) => {
-    console.log(event.target.value);
     this.props.onChapterNameChange(event.target.value);
   };
 
@@ -87,12 +85,22 @@ class AddQuestion extends Component {
   };
 
   submitButtonClicked = () => {
-    console.log(editorStateToRenderState(this.props.editorState));
     const questionRawData = JSON.stringify(
       editorStateToRenderState(this.props.editorState)
     );
+    if (
+      !this.props.cls ||
+      !this.props.sub ||
+      !this.props.type ||
+      !this.props.marks ||
+      !this.props.chName ||
+      !questionRawData
+    ) {
+      alert("Fields can't be empty.");
+      return;
+    }
     const dataToBeExported = {
-      id: Math.floor(Math.random() * 1000),
+      id: Math.floor(Math.random() * 10000000000),
       cls: this.props.cls,
       subject: this.props.sub,
       type: this.props.type,
@@ -112,8 +120,7 @@ class AddQuestion extends Component {
             alertDialogOpen: true,
             alertDialogMsg: "Question Updated Successfully",
           });
-          this.props.resetState();
-          console.log(result);
+          this.props.onEditorStateChange("");
           this.setState({ loading: false });
         })
         .catch((err) => {
@@ -132,7 +139,6 @@ class AddQuestion extends Component {
               alertDialogMsg: "Question Added Successfully",
             });
             this.props.onEditorStateChange("");
-            console.log(result);
             this.setState({ loading: false });
           })
           .catch((err) => {

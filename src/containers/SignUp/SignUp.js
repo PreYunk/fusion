@@ -76,7 +76,6 @@ export default class SignUp extends Component {
       })
       .then((res) => {
         this.setState({ message: res.data.message });
-        console.log(res);
       })
       .catch((err) => this.setState({ message: err }));
   };

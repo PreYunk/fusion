@@ -74,7 +74,6 @@ class GeneratePaper extends Component {
           this.props.paperSubject
       )
       .then((result) => {
-        console.log(result.data.data);
         this.props.setFetchedQuestions(result.data.data);
       })
       .catch((err) => console.log(err));

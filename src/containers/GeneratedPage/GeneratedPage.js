@@ -20,10 +20,8 @@ class GeneratedPage extends Component {
     const questionObj = this.props.questions;
     let sections = [];
     for (let sectionEntries of Object.entries(questionObj)) {
-      console.log(sectionEntries);
       let types = [];
       for (let typeEntries of Object.entries(sectionEntries[1])) {
-        console.log(typeEntries);
         const questions = typeEntries[1].map((question, index) => {
           let questionData = JSON.parse(question.questionData);
           const questionLines = parseQuestion(questionData);

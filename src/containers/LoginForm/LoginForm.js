@@ -41,14 +41,11 @@ class LoginForm extends Component {
       axios
         .post("/verifyLogin", loginData)
         .then((userRes) => {
-          console.log(userRes);
           if (userRes.data.success) {
             axios
               .post("/getAuthorizationToken", userRes.data.userData)
               .then((res) => {
-                console.log(res);
                 localStorage.setItem("token", res.data.token);
-                console.log(userRes.userData);
                 this.props.setActiveUser(userRes.data.userData);
                 this.props.history.replace("/start");
               })
@@ -68,7 +65,6 @@ class LoginForm extends Component {
         axios
           .post("/createUser", loginData)
           .then((res) => {
-            console.log(res);
             this.setState({ loginMessage: res.data.message });
           })
           .catch((err) => console.log(err));

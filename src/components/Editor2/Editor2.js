@@ -20,8 +20,6 @@ const Editor2 = (props) => {
   }, [editorState]);
 
   const onChangeHandler = (event) => {
-    console.log(props.editStatus);
-
     setEditorState(event.target.value);
   };
 
@@ -47,7 +45,6 @@ const Editor2 = (props) => {
 };
 export default Editor2;
 export const editorStateToRenderState = (es) => {
-  console.log(es);
   const renderState = { lines: [], raw: es };
   let tracker = "";
   let segment = "";
@@ -57,9 +54,6 @@ export const editorStateToRenderState = (es) => {
   for (let i = 0; i < es.length; i++) {
     tracker += es[i];
     if (tracker.endsWith("|s/|")) {
-      console.log("1st");
-      console.log(segment);
-
       if (segment !== "") {
         segment = segment.slice(0, -10);
         line[segCtr] = { text: segment, type: "text" };
@@ -67,7 +61,6 @@ export const editorStateToRenderState = (es) => {
         segment = "";
       }
     } else if (tracker.endsWith("|e/|")) {
-      console.log("2");
       segmentType = segment.slice(-7, -3);
       segment = segment.slice(0, -10);
       line[segCtr] = { text: segment, type: segmentType };
@@ -75,14 +68,12 @@ export const editorStateToRenderState = (es) => {
       segment = "";
       if (i === es.length - 1) renderState.lines.push(line);
     } else if (es[i] === "\n") {
-      console.log("3");
       line[segCtr] = { text: segment, type: "text" };
       segCtr = 0;
       segment = "";
       renderState.lines.push(line);
       line = {};
     } else if (i === es.length - 1) {
-      console.log("4");
       segment += es[i];
       line[segCtr] = { text: segment, type: "text" };
       renderState.lines.push(line);

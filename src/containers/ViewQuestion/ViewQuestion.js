@@ -56,12 +56,10 @@ class ViewQuestion extends Component {
     this.setState({ previewEditorState: prevEditorState, previewOpen: true });
   };
   deleteButtonClickHandler = (questionId, user) => {
-    console.log(this.state.updateQuestionAccess);
     console.log("Question Added by  " + user._id);
     console.log("Active User " + this.props.activeUser.userId);
-    console.log(user._id === this.props.activeUser.userId);
     if (
-      this.state.updateQuestionAccess ||
+      this.props.activeUser.permissions.updateQuestion ||
       user._id === this.props.activeUser.userId
     ) {
       this.setState({ loading: true });
@@ -69,7 +67,6 @@ class ViewQuestion extends Component {
         .delete("/deleteQuestion", { data: { id: questionId } })
         .then((result) => {
           this.setState({ deleteDialogBoxOpen: true });
-          console.log(result);
           this.setState({ loading: false });
         })
         .catch((err) => console.log(err));
@@ -77,18 +74,15 @@ class ViewQuestion extends Component {
   };
 
   editButtonClickHandler = (questionEditData) => {
-    console.log(questionEditData._id);
-    console.log(this.state.updateQuestionAccess);
     console.log("Question Added by  " + questionEditData.user._id);
     console.log("Active User " + this.props.activeUser.userId);
     console.log(questionEditData.user._id === this.props.activeUser.userId);
     if (
-      this.state.updateQuestionAccess ||
+      this.props.activeUser.permissions.updateQuestion ||
       questionEditData.user._id === this.props.activeUser.userId
     ) {
       this.performQuestionEdit(questionEditData);
     } else {
-      console.log("exec else");
       this.setState({ updateQuestionDeniedAlert: true });
     }
   };
@@ -125,7 +119,6 @@ class ViewQuestion extends Component {
       .get("/getQuestions" + queryString)
       // axios.get('https://polar-sea-14304.herokuapp.com/api/getQuestions'+queryString)
       .then((questions) => {
-        console.log(queryString);
         this.setState({ questionDataFetched: questions.data.data });
         const expandableQuestions = questions.data.data.map((question) => {
           const questionDetails = (
@@ -152,7 +145,6 @@ class ViewQuestion extends Component {
 
           const renderState = JSON.parse(question.questionData);
           const editorState = renderStateToEditorState(renderState);
-          console.log(editorState);
           const expandableActions = (
             <div className={classes.ExpandableActions}>
               <MaterialFab
@@ -202,7 +194,6 @@ class ViewQuestion extends Component {
         });
         this.setState({ expandableComponentsData: expandableQuestions });
         this.setState({ formDialogBoxOpen: false });
-        console.log(this.state.questionDataFetched);
         this.setState({ loading: false });
       })
       .catch((err) => console.log(err));
@@ -212,7 +203,6 @@ class ViewQuestion extends Component {
     this.setState({ formDialogBoxOpen: true });
   };
   handleFormDialogClose = () => {
-    console.log("Dialog onClose fired");
     this.setState({ formDialogBoxOpen: false });
   };
   subjectStateChanged = (event) => {
@@ -222,7 +212,6 @@ class ViewQuestion extends Component {
     this.setState({ classFilter: event.target.value });
   };
   switchStateChanged = (switchName) => (event) => {
-    console.log("Switched");
     if (switchName === "subject")
       this.setState({ subjectFilterEnabled: event.target.checked });
     if (switchName === "class")

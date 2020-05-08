@@ -46,7 +46,6 @@ class StartPage extends Component {
     this.props.history.push("/login");
   };
   loginSwitchChangeHandler = (event) => {
-    console.log(event.target.checked);
     this.setState({ enableULogin: event.target.checked });
     this.setState({ changingControl: true });
     axios
@@ -101,7 +100,9 @@ class StartPage extends Component {
         <div className={classNames.join(" ")}>
           <Link to="/start/add">Add</Link>
           <Link to="/start/view">View</Link>
-          <Link to="/start/generate">Generate</Link>
+          {this.props.mobile ? null : (
+            <Link to="/start/generate">Generate</Link>
+          )}
         </div>
       </div>
     );

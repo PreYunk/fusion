@@ -19,7 +19,6 @@ const withAuth = (ProtectedComponent, mobile) => {
       axios
         .get("/verifyToken", { headers })
         .then((res) => {
-          console.log(res.data.message);
           this.setState({ checkedFromBackend: true, loading: false });
           this.setState({ verified: res.data.success });
         })
