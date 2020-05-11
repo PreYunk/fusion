@@ -11,6 +11,10 @@ import { EditorState } from "draft-js";
 import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import FilledButton from "../../components/FilledButton/FilledButton";
 import AlertDialog from "../../components/AlertDialog/AlertDialog";
+import {
+  classData as clsData,
+  subjectData as subData,
+} from "../AddQuestion/AddQuestion";
 import { MetroSpinner } from "react-spinners-kit";
 import LoadingOverlay from "react-loading-overlay";
 import { Editor } from "react-draft-wysiwyg";
@@ -21,6 +25,7 @@ import { parseQuestion } from "../GeneratedPage/GeneratedPage";
 
 import axios from "axios";
 import * as actions from "../../store/actions/index";
+import Button from "../../components/Button/Button";
 
 class ViewQuestion extends Component {
   state = {
@@ -123,8 +128,9 @@ class ViewQuestion extends Component {
       .get("/getQuestions" + queryString)
       // axios.get('https://polar-sea-14304.herokuapp.com/api/getQuestions'+queryString)
       .then((questions) => {
-        this.setState({ questionDataFetched: questions.data.data });
-        const expandableQuestions = questions.data.data.map((question) => {
+        let ques = questions.data.data.reverse();
+        this.setState({ questionDataFetched: ques });
+        const expandableQuestions = ques.map((question) => {
           const questionDetails = (
             <div className={classes.QuestionDetailsDiv}>
               <ul className={classes.QuestionDetails}>
@@ -151,26 +157,26 @@ class ViewQuestion extends Component {
           const editorState = renderStateToEditorState(renderState);
           const expandableActions = (
             <div className={classes.ExpandableActions}>
-              <MaterialFab
+              <Button
                 onClick={() => this.previewButtonClickHandler(renderState)}
                 mobile={this.props.mobile}
               >
                 Preview
-              </MaterialFab>
-              <MaterialFab
+              </Button>
+              <Button
                 onClick={() => this.editButtonClickHandler(question)}
                 mobile={this.props.mobile}
               >
                 Edit
-              </MaterialFab>
-              <MaterialFab
+              </Button>
+              <Button
                 onClick={() =>
                   this.deleteButtonClickHandler(question._id, question.user)
                 }
                 mobile={this.props.mobile}
               >
                 Delete
-              </MaterialFab>
+              </Button>
             </div>
           );
           let rawQue = editorState;
@@ -227,37 +233,9 @@ class ViewQuestion extends Component {
   };
 
   render() {
-    const classData = [
-      { value: 1, label: "I" },
-      { value: 2, label: "II" },
-      { value: 3, label: "III" },
-      { value: 4, label: "IV" },
-      { value: 5, label: "V" },
-      { value: 6, label: "VI" },
-      { value: 7, label: "VII" },
-      { value: 8, label: "VIII" },
-      { value: 9, label: "IX" },
-      { value: 10, label: "X" },
-      { value: 11, label: "XI" },
-      { value: 12, label: "XII" },
-    ];
+    const classData = clsData;
 
-    const subjectData = [
-      { value: "English I", label: "English I" },
-      { value: "English II", label: "English II" },
-      { value: "Maths", label: "Maths" },
-      { value: "History & Civics", label: "History & Civics" },
-      { value: "SST", label: "SST" },
-      { value: "GK", label: "GK" },
-      { value: "Computer", label: "Computer" },
-      { value: "Hindi", label: "Hindi" },
-      { value: "Sanskrit", label: "Sanskrit" },
-      { value: "Geography", label: "Geography" },
-      { value: "Science", label: "Science" },
-      { value: "Physics", label: "Physics" },
-      { value: "Chemistry", label: "Chemistry" },
-      { value: "Biology", label: "Biology" },
-    ];
+    const subjectData = subData;
     return this.state.loading ? (
       <div style={{ position: "absolute", top: "40vh", left: "45vw" }}>
         <LoadingOverlay

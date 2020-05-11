@@ -19,6 +19,7 @@ import ExpandableComponents from "../../components/ExpandableComponents/Expandab
 import Label from "../../components/Label/Label";
 import AlertDialog from "../../components/AlertDialog/AlertDialog";
 import { withRouter } from "react-router-dom";
+import Button from "../../components/Button/Button";
 
 class SelectQuestions extends Component {
   componentWillMount() {
@@ -159,14 +160,12 @@ class SelectQuestions extends Component {
         );
         const expandableActions = (
           <div className={viewQuestionClasses.ExpandableActions}>
-            <MaterialFab
-              onClick={() => this.previewButtonClickHandler(editorState)}
-            >
+            <Button onClick={() => this.previewButtonClickHandler(editorState)}>
               Preview
-            </MaterialFab>
-            <MaterialFab onClick={() => this.addButtonClickHandler(question)}>
+            </Button>
+            <Button onClick={() => this.addButtonClickHandler(question)}>
               Add
-            </MaterialFab>
+            </Button>
           </div>
         );
         let rawQue = editorState;
@@ -293,12 +292,12 @@ class SelectQuestions extends Component {
 
               <List smallList listData={typeListData} header="Types:" />
               <List smallList listData={chaptersListData} header="Chapters:" />
-              <MaterialFab onClick={this.resetFilterButtonClickHandler}>
+              <Button onClick={this.resetFilterButtonClickHandler}>
                 Reset Filter
-              </MaterialFab>
-              <MaterialFab onClick={this.generateButtonClickHandler}>
+              </Button>
+              <Button onClick={this.generateButtonClickHandler}>
                 Generate
-              </MaterialFab>
+              </Button>
             </div>
           </div>
         </div>

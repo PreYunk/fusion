@@ -12,7 +12,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   border: 2px solid #313131;
   border-radius: 30px;
   width: 20vw;
@@ -37,7 +37,7 @@
   border: 5px solid #313131;
   border-radius: 10px;
   background-color: #313131;
-  color: #f1f1f1;
+  color: #ffffff;
 }
 .StartPage {
   margin: 0;
@@ -50,7 +50,7 @@
   height: 60px;
   width: 100%;
   background-color: #313131;
-  color: #f1f1f1;
+  color: #ffffff;
   display: flex;
   flex-flow: row;
   justify-content: space-around;
@@ -66,7 +66,7 @@
   flex-flow: row;
   background-color: #313131;
   align-items: center;
-  border: 1px solid #f1f1f1;
+  border: 1px solid #ffffff;
   flex-wrap: wrap;
   justify-content: center;
 }

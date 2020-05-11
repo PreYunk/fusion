@@ -9,3 +9,6 @@
   flex-flow: column;
   align-items: center;
 }
+.editorInfo {
+  margin: 10px;
+}

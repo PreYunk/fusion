@@ -5,14 +5,14 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = {
   root: {
     border: "1px solid #313131",
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#ffffff",
     width: "300px",
     borderRadius: "50px",
   },
   mobile: {
     width: "100px",
     border: "1px solid #313131",
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#ffffff",
   },
 };
 

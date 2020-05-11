@@ -83,7 +83,6 @@ class AddQuestion extends Component {
   };
 
   cancelButtonClicked = () => {
-    this.props.resetState();
     this.props.history.goBack();
   };
 
@@ -155,7 +154,13 @@ class AddQuestion extends Component {
   };
 
   alertDialogBoxCloseHandler = () => {
-    this.setState({ alertDialogOpen: false, configOpened: true });
+    if (this.props.questionEditStatus) {
+      this.props.history.goBack();
+    }
+    if (this.props.mobile) {
+      this.setState({ configOpened: true });
+    }
+    this.setState({ alertDialogOpen: false });
   };
 
   onTypeChangeHandler = (event) => {
@@ -173,57 +178,6 @@ class AddQuestion extends Component {
             return { value: type.name, label: type.name };
           })
         : [{ value: "Add Some Types", label: "Add Some Types" }];
-
-    const marksData = [
-      { value: 1, label: "1" },
-      { value: 2, label: "2" },
-      { value: 3, label: "3" },
-      { value: 4, label: "4" },
-      { value: 5, label: "5" },
-      { value: 6, label: "6" },
-      { value: 7, label: "7" },
-      { value: 8, label: "8" },
-      { value: 9, label: "9" },
-      { value: 10, label: "10" },
-    ];
-    const classData = [
-      { value: 1, label: "Nursery" },
-      { value: 2, label: "LKG" },
-      { value: 3, label: "UKG" },
-      { value: 4, label: "I" },
-      { value: 5, label: "II" },
-      { value: 6, label: "III" },
-      { value: 7, label: "IV" },
-      { value: 8, label: "V" },
-      { value: 9, label: "VI" },
-      { value: 10, label: "VII" },
-      { value: 11, label: "VIII" },
-      { value: 12, label: "IX" },
-      { value: 13, label: "X" },
-      { value: 14, label: "XI" },
-      { value: 15, label: "XII" },
-    ];
-    const subjectData = [
-      { value: "English I", label: "English I" },
-      { value: "English II", label: "English II" },
-      { value: "Hindi", label: "Hindi" },
-      { value: "Maths", label: "Maths" },
-      { value: "Science", label: "Science" },
-      { value: "SST", label: "SST" },
-      { value: "Sanskrit", label: "Sanskrit" },
-      { value: "Computer Science", label: "Computer Science" },
-      { value: "IP", label: "IP" },
-      { value: "GK", label: "GK" },
-      { value: "Physics", label: "Physics" },
-      { value: "Chemistry", label: "Chemistry" },
-      { value: "Biology", label: "Biology" },
-      { value: "Physical Education", label: "Physical Education" },
-      { value: "Business Studies", label: "Business Studies" },
-      { value: "Accountancy", label: "Accountancy" },
-      { value: "Economics", label: "Economics" },
-      { value: "History & Civics", label: "History & Civics" },
-      { value: "Geography", label: "Geography" },
-    ];
 
     const marksLabel = <Label text="Marks:" />;
     const marksComboBox = (
@@ -305,7 +259,7 @@ class AddQuestion extends Component {
       <div className={classes.AddQuestion}>
         {this.props.mobile ? (
           <div className={classes.ConfigBtn}>
-            <Button text="Config" onButtonClicked={this.configClicked} />
+            <Button onClick={this.configClicked}>Config</Button>
           </div>
         ) : (
           <>
@@ -327,9 +281,7 @@ class AddQuestion extends Component {
                 inputComponent={typeComboBox}
               />
               {this.props.activeUser.permissions.updateQuestion ? (
-                <MaterialFab onClick={this.onClickAddTypeHandler}>
-                  Add
-                </MaterialFab>
+                <Button onClick={this.onClickAddTypeHandler}>Add</Button>
               ) : null}
             </div>
             <AddTypeDialog
@@ -369,11 +321,8 @@ class AddQuestion extends Component {
                   labelComponent={typeLabel}
                   inputComponent={typeComboBox}
                 />
-                {this.props.activeUser.permissions.couldUpdateQuestion ? (
-                  <Button
-                    text="Add Type"
-                    onButtonClicked={this.onClickAddTypeHandler}
-                  />
+                {this.props.activeUser.permissions.updateQuestion ? (
+                  <Button onClick={this.onClickAddTypeHandler}>Add Type</Button>
                 ) : null}
               </div>
               <AddTypeDialog
@@ -470,3 +419,54 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(AddQuestion));
+
+export const marksData = [
+  { value: 1, label: "1" },
+  { value: 2, label: "2" },
+  { value: 3, label: "3" },
+  { value: 4, label: "4" },
+  { value: 5, label: "5" },
+  { value: 6, label: "6" },
+  { value: 7, label: "7" },
+  { value: 8, label: "8" },
+  { value: 9, label: "9" },
+  { value: 10, label: "10" },
+];
+export const classData = [
+  { value: "Nursery", label: "Nursery" },
+  { value: "LKG", label: "LKG" },
+  { value: "UKG", label: "UKG" },
+  { value: "I", label: "I" },
+  { value: "II", label: "II" },
+  { value: "III", label: "III" },
+  { value: "IV", label: "IV" },
+  { value: "V", label: "V" },
+  { value: "VI", label: "VI" },
+  { value: "VII", label: "VII" },
+  { value: "VIII", label: "VIII" },
+  { value: "IX", label: "IX" },
+  { value: "X", label: "X" },
+  { value: "XI", label: "XI" },
+  { value: "XII", label: "XII" },
+];
+export const subjectData = [
+  { value: "English I", label: "English I" },
+  { value: "English II", label: "English II" },
+  { value: "Hindi", label: "Hindi" },
+  { value: "Maths", label: "Maths" },
+  { value: "Science", label: "Science" },
+  { value: "SST", label: "SST" },
+  { value: "Sanskrit", label: "Sanskrit" },
+  { value: "Computer Science", label: "Computer Science" },
+  { value: "IP", label: "IP" },
+  { value: "GK", label: "GK" },
+  { value: "Physics", label: "Physics" },
+  { value: "Chemistry", label: "Chemistry" },
+  { value: "Biology", label: "Biology" },
+  { value: "Physical Education", label: "Physical Education" },
+  { value: "Business Studies", label: "Business Studies" },
+  { value: "Accountancy", label: "Accountancy" },
+  { value: "Economics", label: "Economics" },
+  { value: "History & Civics", label: "History & Civics" },
+  { value: "Geography", label: "Geography" },
+];

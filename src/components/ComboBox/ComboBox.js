@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = {
   root: {
     border: "1px solid #313131",
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#ffffff",
     width: "150px",
     borderRadius: "50px",
     textAlign: "center",
@@ -14,7 +14,7 @@ const styles = {
   },
   mobile: {
     border: "1px solid #313131",
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#ffffff",
     width: "150px",
     borderRadius: "0px",
     textAlign: "center",

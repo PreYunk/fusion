@@ -6,6 +6,7 @@ import MaterialFab from "../../components/MaterialComponents/MaterialFab/Materia
 import * as actions from "../../store/actions/index";
 import Switch from "../../components/Switch/Switch";
 import axios from "axios";
+import Button from "../../components/Button/Button";
 
 class StartPage extends Component {
   state = { enableULogin: false, changingControl: false };
@@ -72,12 +73,9 @@ class StartPage extends Component {
           </span>
           <div className={classes.NavControls}>
             {activeUser.permissions.createUser ? (
-              <MaterialFab
-                variant="extended"
-                onClick={this.createUserClickHandler}
-              >
+              <Button variant="extended" onClick={this.createUserClickHandler}>
                 Create User
-              </MaterialFab>
+              </Button>
             ) : null}
             {activeUser.permissions.accessBeta ? (
               this.state.changingControl ? (
@@ -92,9 +90,9 @@ class StartPage extends Component {
               )
             ) : null}
 
-            <MaterialFab variant="extended" onClick={this.logoutClickHandler}>
+            <Button variant="extended" onClick={this.logoutClickHandler}>
               Log out
-            </MaterialFab>
+            </Button>
           </div>
         </nav>
         <div className={classNames.join(" ")}>

@@ -1,0 +1,6 @@
+.MathButtons {
+  display: flex;
+  flex-flow: row;
+  margin: 10px;
+  justify-content: space-around;
+}
