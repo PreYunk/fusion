@@ -6,9 +6,6 @@ import ExpandableComponents from "../../components/ExpandableComponents/Expandab
 import classes from "./ViewQuestion.css";
 import FormDialog from "../../components/FormDialog/FormDialog";
 import FilterFormComponent from "../../components/Specifics/FilterFormComponents/FilterFormComponents";
-import { convertFromRaw } from "draft-js";
-import { EditorState } from "draft-js";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import FilledButton from "../../components/FilledButton/FilledButton";
 import AlertDialog from "../../components/AlertDialog/AlertDialog";
 import {
@@ -17,10 +14,7 @@ import {
 } from "../AddQuestion/AddQuestion";
 import { MetroSpinner } from "react-spinners-kit";
 import LoadingOverlay from "react-loading-overlay";
-import { Editor } from "react-draft-wysiwyg";
-import Editor2, {
-  renderStateToEditorState,
-} from "../../components/Editor2/Editor2";
+import { renderStateToEditorState } from "../../components/Editor2/Editor2";
 import { parseQuestion } from "../GeneratedPage/GeneratedPage";
 
 import axios from "axios";

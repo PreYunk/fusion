@@ -13,7 +13,6 @@ import Input from "../../components/Input/Input";
 import RowGroupedThree from "../../components/RowGroupedThree/RowGroupedThree";
 import FilledButton from "../../components/FilledButton/FilledButton";
 import AlertDialogBox from "../../components/AlertDialog/AlertDialog";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import AddTypeDialog from "../../components/Specifics/AddTypeDialog/AddTypeDialog";
 import Editor2, {
   editorStateToRenderState,

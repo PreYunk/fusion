@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import classes from "./StartPage.css";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import * as actions from "../../store/actions/index";
 import Switch from "../../components/Switch/Switch";
 import axios from "axios";
@@ -73,9 +72,12 @@ class StartPage extends Component {
           </span>
           <div className={classes.NavControls}>
             {activeUser.permissions.createUser ? (
-              <Button variant="extended" onClick={this.createUserClickHandler}>
+              <div
+                className={classes.NavLink}
+                onClick={this.createUserClickHandler}
+              >
                 Create User
-              </Button>
+              </div>
             ) : null}
             {activeUser.permissions.accessBeta ? (
               this.state.changingControl ? (
@@ -90,9 +92,9 @@ class StartPage extends Component {
               )
             ) : null}
 
-            <Button variant="extended" onClick={this.logoutClickHandler}>
+            <div className={classes.NavLink} onClick={this.logoutClickHandler}>
               Log out
-            </Button>
+            </div>
           </div>
         </nav>
         <div className={classNames.join(" ")}>

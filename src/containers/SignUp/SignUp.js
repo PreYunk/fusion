@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormComponent from "../../components/FormComponent/FormComponent";
 import Input from "../../components/Input/Input";
 import Label from "../../components/Label/Label";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import axios from "axios";
 
 import classes from "./SignUp.css";

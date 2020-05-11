@@ -1,6 +1,9 @@
 .MathButtons {
   display: flex;
+  box-sizing: border-box;
   flex-flow: row;
   margin: 10px;
   justify-content: space-around;
+  border: 1px solid black;
+  padding: 3px;
 }
