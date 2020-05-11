@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import classes from "./Editor2.css";
 import Toolbar from "./Toolbar/Toolbar";
-import MaterialFab from "../MaterialComponents/MaterialFab/MaterialFab";
 import AlertDialog from "../AlertDialog/AlertDialog";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInfoCircle,
-  faDivide,
-  faInfo,
-} from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faDivide } from "@fortawesome/free-solid-svg-icons";
 import { Context, Node } from "react-mathjax2";
 import Button from "../Button/Button";
+import ToolbarDialog from "./Toolbar/ToolbarDialog/ToolbarDialog";
+import Input from "../Input/Input";
+import MathButtons from "./Toolbar/MathButtons/MathButtons";
+
+let currentType = "";
 
 const infoComponents = (
   <Context input="tex">
@@ -111,35 +111,35 @@ const infoComponents = (
 );
 
 const Editor2 = (props) => {
+  const [expState, setExpState] = useState("");
   const [editorState, setEditorState] = useState(props.editorState || "");
   const [infoOpen, setInfoOpen] = useState(false);
   const [mathBarVisible, setMathBarVisible] = useState(false);
-
+  const [dialogOpen, setDialogOpen] = useState(false);
   const editorRef = useRef(null);
-  const insertAtCaret = (text) => {
-    const startPos = editorRef.current.selectionStart;
-    const endPos = editorRef.current.selectionEnd;
-    const scrollTop = editorRef.current.scrollTop;
-    setEditorState(
-      editorState.substring(0, startPos) +
+  const inputRef = useRef(null);
+
+  const insertAtCaret = (text, state, setState, ref) => {
+    const startPos = ref.current.selectionStart;
+    const endPos = ref.current.selectionEnd;
+    const scrollTop = ref.current.scrollTop;
+    setState(
+      state.substring(0, startPos) +
         " " +
         text +
         " " +
-        editorState.substring(endPos, editorState.length)
+        state.substring(endPos, state.length)
     );
-    editorRef.current.focus();
-    editorRef.current.selectionStart = startPos + text.length;
-    editorRef.current.selectionEnd = startPos + text.length;
-    editorRef.current.scrollTop = scrollTop;
+    ref.current.focus();
+    ref.current.selectionStart = startPos + text.length;
+    ref.current.selectionEnd = startPos + text.length;
+    ref.current.scrollTop = scrollTop;
   };
   const toolbarButtonClickHandler = (isOn, type) => {
-    if (isOn) {
-      insertAtCaret("|s|" + type + "|s/|");
-    } else {
-      insertAtCaret("|e|" + type + "|e/|");
-    }
-    if (type === "math") setMathBarVisible(isOn);
-    editorRef.current.focus();
+    currentType = type;
+    if (type === "math") setMathBarVisible(true);
+    else setMathBarVisible(false);
+    setDialogOpen(true);
   };
 
   useEffect(() => {
@@ -157,8 +157,43 @@ const Editor2 = (props) => {
     setInfoOpen(false);
   };
   const mathButtonClickHandler = (exp) => {
-    insertAtCaret(exp);
+    insertAtCaret(exp, expState, setExpState, inputRef);
   };
+
+  const toolbarDialogAcceptHandler = (dialogType) => {
+    setDialogOpen(false);
+    insertAtCaret(
+      "|s|" +
+        dialogType +
+        "|s/|" +
+        " " +
+        expState +
+        " " +
+        "|e|" +
+        dialogType +
+        "|e/|",
+      editorState,
+      setEditorState,
+      editorRef
+    );
+    setExpState("");
+  };
+
+  const toolbarContents = [];
+  toolbarContents.push(
+    <MathButtons
+      visible={mathBarVisible}
+      onMathButtonClicked={mathButtonClickHandler}
+    />
+  );
+  toolbarContents.push(
+    <Input
+      ref={inputRef}
+      value={expState}
+      onChange={(event) => setExpState(event.target.value)}
+      placeholder="Expression"
+    />
+  );
 
   return (
     <div className={classes.Wrapper}>
@@ -172,8 +207,6 @@ const Editor2 = (props) => {
         toolbarButtonClicked={(isOn, type) =>
           toolbarButtonClickHandler(isOn, type)
         }
-        mathBarVisible={mathBarVisible}
-        onMathButtonClicked={mathButtonClickHandler}
       />
       <textarea
         ref={editorRef}
@@ -193,6 +226,13 @@ const Editor2 = (props) => {
         onClickButton={onInfoClose}
         buttonText="Close"
         dialogContentComponent={infoComponents}
+      />
+      <ToolbarDialog
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        content={toolbarContents}
+        onAccept={toolbarDialogAcceptHandler}
+        dialogType={currentType}
       />
     </div>
   );

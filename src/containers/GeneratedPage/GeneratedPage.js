@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import classes from "./GeneratedPage.css";
-import ReactDOMServer from "react-dom/server";
+
 import Header from "../../components/Specifics/GeneratePageComponents/Header/Header";
 import PaperDetails from "../../components/Specifics/GeneratePageComponents/PaperDetails/PaperDetails";
 import { connect } from "react-redux";
-import { renderStateToHTML } from "../../components/Editor2/Editor2";
+
 import * as actions from "../../store/actions/index";
 import { withRouter } from "react-router-dom";
 import { Context, Node } from "react-mathjax2";

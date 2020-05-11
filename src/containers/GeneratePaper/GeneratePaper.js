@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Input from "../../components/Input/Input";
 import Label from "../../components/Label/Label";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import axios from "axios";
 import CSSTransition from "react-transition-group/CSSTransition";
 import { withRouter } from "react-router-dom";

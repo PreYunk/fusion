@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-import { convertFromRaw, EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+
 import { Context } from "react-mathjax2";
 import { parseQuestion } from "../GeneratedPage/GeneratedPage";
-import Editor2, {
+import {
   renderStateToEditorState,
   editorStateToRenderState,
 } from "../../components/Editor2/Editor2";
@@ -14,9 +13,7 @@ import classes from "./SelectQuestions.css";
 import viewQuestionClasses from "../ViewQuestion/ViewQuestion.css";
 import ComboBox from "../../components/ComboBox/ComboBox";
 import List from "../../components/List/List";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import ExpandableComponents from "../../components/ExpandableComponents/ExpandableComponents";
-import Label from "../../components/Label/Label";
 import AlertDialog from "../../components/AlertDialog/AlertDialog";
 import { withRouter } from "react-router-dom";
 import Button from "../../components/Button/Button";

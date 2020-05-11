@@ -4,23 +4,22 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
   root: {
-    border: "1px solid #313131",
     backgroundColor: "#ffffff",
     width: "300px",
-    borderRadius: "50px",
   },
   mobile: {
     width: "100px",
-    border: "1px solid #313131",
+
     backgroundColor: "#ffffff",
   },
 };
 
-const input = (props) => {
+const input = React.forwardRef((props, ref) => {
   const { classes } = props;
   return (
     <Input
-      disableUnderline={true}
+      required={props.required}
+      inputRef={ref}
       classes={{ root: props.mobile ? classes.mobile : classes.root }}
       id={props.id}
       name={props.name}
@@ -33,6 +32,6 @@ const input = (props) => {
       }}
     />
   );
-};
+});
 
 export default withStyles(styles)(input);

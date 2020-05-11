@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./MathButtons.css";
 import MathButton from "./MathButton/MathButton";
 import { Context, Node } from "react-mathjax2";

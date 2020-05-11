@@ -7,7 +7,6 @@ import classes from "./LoginForm.css";
 import Label from "../../components/Label/Label";
 import Input from "../../components/Input/Input";
 import * as actions from "../../store/actions/index";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import Switch from "../../components/Switch/Switch";
 import Button from "../../components/Button/Button";
 
