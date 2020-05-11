@@ -1,0 +1,7 @@
+.MathButton {
+  user-select: none;
+  border: 1px solid transparent;
+}
+.MathButton:hover {
+  border: 1px solid black;
+}

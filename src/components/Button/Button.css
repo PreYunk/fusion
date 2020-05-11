@@ -1,22 +1,24 @@
 .Button {
+  box-sizing: border-box;
   margin: auto;
-  padding: 0.3vw 1.5vw;
+  padding: 5px;
   background: none;
   cursor: pointer;
   text-decoration: none;
-  border: solid 5px #313131;
-  -moz-border-radius: 75px;
-  -webkit-border-radius: 75px;
-  border-radius: 75px;
-  color: #313131;
+  border: solid 1px #313131;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #ffffff;
+  background-color: #313131;
   font-family: "Raleway";
-  font-size: 2vw;
+  font-weight: bold;
+  font-size: 1.3rem;
   transition: transform 100ms ease-out;
+  box-shadow: 3px 3px 10px gray;
 }
 
 .Button:hover {
-  background-color: #313131;
-  color: #f1f1f1;
   transform: scale(1.2);
 }
 .Button:active {
@@ -28,10 +30,10 @@
     margin: auto;
     padding: 10px;
     border: solid 1px #313131;
-    border-radius: 0px;
-    color: #313131;
-    font-family: "Lemon";
-    font-size: 30;
+    border-radius: 3px;
+    color: #ffffff;
+    font-family: "Raleway";
+    font-size: 1rem;
     transition: transform 100ms ease-out;
   }
 }

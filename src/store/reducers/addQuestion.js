@@ -3,7 +3,7 @@ import { EditorState } from "draft-js";
 
 const initialState = {
   chapterName: 0,
-  class: 1,
+  class: "",
   marks: 1,
   type: "",
   editorState: "",

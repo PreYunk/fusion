@@ -6,10 +6,10 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Input from "../../components/Input/Input";
 import Label from "../../components/Label/Label";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import axios from "axios";
 import CSSTransition from "react-transition-group/CSSTransition";
 import { withRouter } from "react-router-dom";
+import Button from "../../components/Button/Button";
 
 class GeneratePaper extends Component {
   state = {
@@ -22,40 +22,40 @@ class GeneratePaper extends Component {
     let classValue = 0;
     switch (label) {
       case "I":
-        classValue = 1;
+        classValue = "I";
         break;
       case "II":
-        classValue = 2;
+        classValue = "II";
         break;
       case "III":
-        classValue = 3;
+        classValue = "III";
         break;
       case "IV":
-        classValue = 4;
+        classValue = "IV";
         break;
       case "V":
-        classValue = 5;
+        classValue = "V";
         break;
       case "VI":
-        classValue = 6;
+        classValue = "VI";
         break;
       case "VII":
-        classValue = 7;
+        classValue = "VII";
         break;
       case "VIII":
-        classValue = 8;
+        classValue = "VIII";
         break;
       case "IX":
-        classValue = 9;
+        classValue = "IX";
         break;
       case "X":
-        classValue = 10;
+        classValue = "X";
         break;
       case "XI":
-        classValue = 11;
+        classValue = "XI";
         break;
       case "XII":
-        classValue = 12;
+        classValue = "XII";
         break;
     }
     this.props.setPaperClass(label, classValue);
@@ -83,84 +83,84 @@ class GeneratePaper extends Component {
   render() {
     const classData = [
       {
-        value: 1,
+        value: "I",
         label: "I",
         selected: this.state.classSelectedIndex === 0,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 2,
+        value: "II",
         label: "II",
         selected: this.state.classSelectedIndex === 1,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 3,
+        value: "III",
         label: "III",
         selected: this.state.classSelectedIndex === 2,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 4,
+        value: "IV",
         label: "IV",
         selected: this.state.classSelectedIndex === 3,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 5,
+        value: "V",
         label: "V",
         selected: this.state.classSelectedIndex === 4,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 6,
+        value: "VI",
         label: "VI",
         selected: this.state.classSelectedIndex === 5,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 7,
+        value: "VII",
         label: "VII",
         selected: this.state.classSelectedIndex === 6,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 8,
+        value: "VIII",
         label: "VIII",
         selected: this.state.classSelectedIndex === 7,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 9,
+        value: "IX",
         label: "IX",
         selected: this.state.classSelectedIndex === 8,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 10,
+        value: "X",
         label: "X",
         selected: this.state.classSelectedIndex === 9,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 11,
+        value: "XI",
         label: "XI",
         selected: this.state.classSelectedIndex === 10,
         onClick: (event, label, index) =>
           this.classListClickHandler(event, label, index),
       },
       {
-        value: 12,
+        value: "XII",
         label: "XII",
         selected: this.state.classSelectedIndex === 11,
         onClick: (event, label, index) =>
@@ -338,9 +338,7 @@ class GeneratePaper extends Component {
               </div>
             </div>
             <div style={{ textAlign: "right" }}>
-              <MaterialFab onClick={this.generateNextButtonClicked}>
-                Next
-              </MaterialFab>
+              <Button onClick={this.generateNextButtonClicked}>Next</Button>
             </div>
           </div>
         </CSSTransition>

@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormComponent from "../../components/FormComponent/FormComponent";
 import Input from "../../components/Input/Input";
 import Label from "../../components/Label/Label";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import axios from "axios";
 
 import classes from "./SignUp.css";
+import Button from "../../components/Button/Button";
 
 export default class SignUp extends Component {
   state = {
@@ -134,9 +134,7 @@ export default class SignUp extends Component {
                 &nbsp; make sure to remember your password.
               </span>
             </div>
-            <MaterialFab onClick={this.signUpBtnClickHandler}>
-              SignUp
-            </MaterialFab>
+            <Button onClick={this.signUpBtnClickHandler}>SignUp</Button>
           </>
         )}
       </div>

@@ -7,8 +7,8 @@ import classes from "./LoginForm.css";
 import Label from "../../components/Label/Label";
 import Input from "../../components/Input/Input";
 import * as actions from "../../store/actions/index";
-import MaterialFab from "../../components/MaterialComponents/MaterialFab/MaterialFab";
 import Switch from "../../components/Switch/Switch";
+import Button from "../../components/Button/Button";
 
 class LoginForm extends Component {
   state = {
@@ -101,9 +101,9 @@ class LoginForm extends Component {
             >
               Want to create a new user?
             </span>
-            <MaterialFab variant="extended" onClick={this.signUpClickHandler}>
+            <Button variant="extended" onClick={this.signUpClickHandler}>
               Create User
-            </MaterialFab>
+            </Button>
           </div>
         );
       }
@@ -120,9 +120,9 @@ class LoginForm extends Component {
         >
           Want to gain access?
         </span>
-        <MaterialFab variant="extended" onClick={this.loginClickHandler}>
+        <Button variant="extended" onClick={this.loginClickHandler}>
           Login
-        </MaterialFab>
+        </Button>
       </div>
     );
     return (
@@ -141,7 +141,7 @@ class LoginForm extends Component {
               style={{
                 fontFamily: "Raleway",
                 fontSize: "1.5rem",
-                color: "#f1f1f1",
+                color: "#ffffff",
                 marginLeft: "20px",
               }}
             >
@@ -151,7 +151,7 @@ class LoginForm extends Component {
               style={{
                 fontFamily: "Raleway",
                 fontSize: "1.5rem",
-                color: "#f1f1f1",
+                color: "#ffffff",
                 marginLeft: "20px",
               }}
             >
@@ -234,13 +234,13 @@ class LoginForm extends Component {
           </div>
         </div>
         {this.props.loginMode ? signUpPrompt : loginPrompt}
-        <MaterialFab
+        <Button
           type="default"
           variant="extended"
           onClick={this.authenticateClickHandler}
         >
           {this.props.loginMode ? "Login" : "SignUp"}
-        </MaterialFab>
+        </Button>
       </div>
     );
   }

@@ -5,7 +5,7 @@ import Fab from "@material-ui/core/Fab";
 const styles = () => ({
   root: {
     backgroundColor: "#313131",
-    color: "#f1f1f1",
+    color: "#ffffff",
     margin: "0 30px",
     fontFamily: "Raleway",
     fontWeight: "700",
@@ -18,7 +18,7 @@ const styles = () => ({
   },
   mobile: {
     backgroundColor: "#313131",
-    color: "#f1f1f1",
+    color: "#ffffff",
     fontFamily: "Raleway",
     fontWeight: "700",
     transition: "transform 100ms ease-in",
