@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Context, Node } from "react-mathjax2";
@@ -22,6 +22,11 @@ import * as actions from "../../store/actions/index";
 import Button from "../../components/Button/Button";
 
 class ViewQuestion extends Component {
+  limit = 20;
+  skip = 0;
+  dataRef = createRef(null);
+  scrollPos = 0;
+
   state = {
     deleteDialogBoxOpen: false,
     formDialogBoxOpen: false,
@@ -35,13 +40,15 @@ class ViewQuestion extends Component {
     expandableComponentsData: [],
     previewOpen: false,
     previewEditorState: "",
-    loading: false,
+    loading: true,
     updateQuestionAccess: false,
     updateQuestionDeniedAlert: false,
+    loadingMoreQuestions: false,
   };
 
-  componentWillMount() {
-    this.formAcceptHandler();
+  componentDidMount() {
+    this.fetchQuestions();
+    console.log("hh");
   }
 
   // componentDidMount() {
@@ -104,7 +111,7 @@ class ViewQuestion extends Component {
     this.props.history.push("/start/add");
   };
 
-  formAcceptHandler = () => {
+  fetchQuestions = () => {
     let queryString = "";
     if (this.state.subjectFilterEnabled && this.state.classFilterEnabled)
       queryString =
@@ -119,86 +126,102 @@ class ViewQuestion extends Component {
     console.log("Form Submitted");
     this.setState({ loading: true });
     axios
-      .get("/getQuestions" + queryString)
+      .get("/getQuestions" + queryString, {
+        params: {
+          limit: this.limit,
+          skip: this.skip,
+        },
+      })
       // axios.get('https://polar-sea-14304.herokuapp.com/api/getQuestions'+queryString)
       .then((questions) => {
-        let ques = questions.data.data.reverse();
-        this.setState({ questionDataFetched: ques });
-        const expandableQuestions = ques.map((question) => {
-          const questionDetails = (
-            <div className={classes.QuestionDetailsDiv}>
-              <ul className={classes.QuestionDetails}>
-                <li className={classes.QuestionDetail}>
-                  Subject: {question.subject}
-                </li>
-                <li className={classes.QuestionDetail}>
-                  Class: {question.cls}
-                </li>
-                <li className={classes.QuestionDetail}>
-                  Type: {question.type}
-                </li>
-                <li className={classes.QuestionDetail}>
-                  Marks: {question.marks}
-                </li>
-                <li className={classes.QuestionDetail}>
-                  CreatedBy: {question.user.username}
-                </li>
-              </ul>
-            </div>
-          );
-
-          const renderState = JSON.parse(question.questionData);
-          const editorState = renderStateToEditorState(renderState);
-          const expandableActions = (
-            <div className={classes.ExpandableActions}>
-              <Button
-                onClick={() => this.previewButtonClickHandler(renderState)}
-                mobile={this.props.mobile}
-              >
-                Preview
-              </Button>
-              <Button
-                onClick={() => this.editButtonClickHandler(question)}
-                mobile={this.props.mobile}
-              >
-                Edit
-              </Button>
-              <Button
-                onClick={() =>
-                  this.deleteButtonClickHandler(question._id, question.user)
-                }
-                mobile={this.props.mobile}
-              >
-                Delete
-              </Button>
-            </div>
-          );
-          let rawQue = editorState;
-          if (rawQue.length >= 50) rawQue = rawQue.slice(0, 51);
-          const expSummaryComponent = (
-            <div className={classes.SummaryComponents}>
-              <span className={classes.SummaryComponent}>{rawQue}</span>
-              <span className={classes.SummaryComponent}>
-                Ch. No. {question.chapterName}
-              </span>
-              <span className={classes.SummaryComponent}>
-                Class: {question.cls}
-              </span>
-              <span className={classes.SummaryComponent}>
-                {question.subject}
-              </span>
-            </div>
-          );
+        console.log(questions);
+        let ques = questions.data.data;
+        this.setState((prevState) => {
           return {
-            summary: "",
-            summaryComponent: expSummaryComponent,
-            detail: questionDetails,
-            actions: expandableActions,
+            questionDataFetched: prevState.questionDataFetched.concat(ques),
           };
         });
-        this.setState({ expandableComponentsData: expandableQuestions });
-        this.setState({ formDialogBoxOpen: false });
-        this.setState({ loading: false });
+        console.log(this.state.questionDataFetched);
+        const expandableQuestions = this.state.questionDataFetched.map(
+          (question) => {
+            const questionDetails = (
+              <div className={classes.QuestionDetailsDiv}>
+                <ul className={classes.QuestionDetails}>
+                  <li className={classes.QuestionDetail}>
+                    Subject: {question.subject}
+                  </li>
+                  <li className={classes.QuestionDetail}>
+                    Class: {question.cls}
+                  </li>
+                  <li className={classes.QuestionDetail}>
+                    Type: {question.type}
+                  </li>
+                  <li className={classes.QuestionDetail}>
+                    Marks: {question.marks}
+                  </li>
+                  <li className={classes.QuestionDetail}>
+                    CreatedBy: {question.user.username}
+                  </li>
+                </ul>
+              </div>
+            );
+
+            const renderState = JSON.parse(question.questionData);
+            const editorState = renderStateToEditorState(renderState);
+            const expandableActions = (
+              <div className={classes.ExpandableActions}>
+                <Button
+                  onClick={() => this.previewButtonClickHandler(renderState)}
+                  mobile={this.props.mobile}
+                >
+                  Preview
+                </Button>
+                <Button
+                  onClick={() => this.editButtonClickHandler(question)}
+                  mobile={this.props.mobile}
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() =>
+                    this.deleteButtonClickHandler(question._id, question.user)
+                  }
+                  mobile={this.props.mobile}
+                >
+                  Delete
+                </Button>
+              </div>
+            );
+            let rawQue = editorState;
+            if (rawQue.length >= 50) rawQue = rawQue.slice(0, 51);
+            const expSummaryComponent = (
+              <div className={classes.SummaryComponents}>
+                <span className={classes.SummaryComponent}>{rawQue}</span>
+                <span className={classes.SummaryComponent}>
+                  Ch. No. {question.chapterName}
+                </span>
+                <span className={classes.SummaryComponent}>
+                  Class: {question.cls}
+                </span>
+                <span className={classes.SummaryComponent}>
+                  {question.subject}
+                </span>
+              </div>
+            );
+            return {
+              summary: "",
+              summaryComponent: expSummaryComponent,
+              detail: questionDetails,
+              actions: expandableActions,
+            };
+          }
+        );
+        this.setState({
+          expandableComponentsData: expandableQuestions,
+          loading: false,
+          loadingMoreQuestions: false,
+          formDialogBoxOpen: false,
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -226,6 +249,11 @@ class ViewQuestion extends Component {
     this.setState({ previewOpen: false });
   };
 
+  loadMoreClickHandler = async () => {
+    this.skip += 20;
+    this.fetchQuestions();
+  };
+
   render() {
     const classData = clsData;
 
@@ -241,9 +269,14 @@ class ViewQuestion extends Component {
     ) : (
       <div className={classes.ViewQuestions}>
         {this.state.expandableComponentsData.length ? (
-          <ExpandableComponents
-            expandableComponentsData={this.state.expandableComponentsData}
-          />
+          <div ref={this.dataRef} className={classes.QuestionData}>
+            <ExpandableComponents
+              expandableComponentsData={this.state.expandableComponentsData}
+            />
+            <Button onClick={this.loadMoreClickHandler}>Load More ...</Button>
+            <br />
+            <br />
+          </div>
         ) : (
           <h1 className={classes.NoQuestionsHeading}>
             Press Filter to display questions
@@ -260,7 +293,7 @@ class ViewQuestion extends Component {
           isOpen={this.state.deleteDialogBoxOpen}
           dialogTitle="Delete Successful"
           onClickButton={() => {
-            this.formAcceptHandler();
+            this.fetchQuestions();
             this.setState({ deleteDialogBoxOpen: false });
           }}
           buttonText="Continue"
@@ -308,7 +341,7 @@ class ViewQuestion extends Component {
           dialogTitle="Filter"
           dialogContentText="Field not required must be unchecked"
           okButtonText="Done"
-          okButtonClicked={this.formAcceptHandler}
+          okButtonClicked={this.fetchQuestions}
           formComponent={
             <FilterFormComponent
               subjectFilterState={this.state.subjectFilter}
